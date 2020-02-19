@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "",
+"class": "GitAPI",
+"language": "NativeScript",
+"path": "res://git_api.gdns"
+}, {
 "base": "Spatial",
 "class": "MainMenu",
 "language": "GDScript",
 "path": "res://scripts/menus/3DMenu.gd"
 } ]
 _global_script_class_icons={
+"GitAPI": "",
 "MainMenu": ""
 }
 
@@ -41,7 +47,7 @@ window/stretch/mode="2d"
 
 [gdnative]
 
-singletons=[  ]
+singletons=[ "res://git_api.gdnlib" ]
 
 [input]
 
@@ -187,5 +193,4 @@ multithread/thread_rid_pool_prealloc=60
 
 [rendering]
 
-environment/default_environment="res://default_environment.tres"
 quality/msaa=2
