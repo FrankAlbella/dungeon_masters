@@ -83,7 +83,7 @@ func validate_username(username: String) -> String:
 		
 			
 	if count > 0:
-		username += " (" + str(counter) + ")"
+		username += " (" + str(count) + ")"
 		
 	return username
 
