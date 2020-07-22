@@ -17,12 +17,24 @@ var my_info = { name = "Unknown", server_name = "Unknown", hero = "" }
 
 var repeat_names = {}
 
+var rng_seed = 1
+
 func _ready() -> void:
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	
+func get_rng_seed() -> int:
+	return rng_seed
+
+remote func set_rng_seed(_seed: int) -> void:
+	rng_seed = _seed
+	
+remote func give_rng_seed() -> void:
+	Global.log_normal("give_rng_seed")
+	rpc_id(get_tree().get_rpc_sender_id(), "set_rng_seed", rng_seed)
 
 func _player_connected(id) -> void:
 	# Called on both clients and server when a peer connects. Send my info to it.
@@ -34,6 +46,13 @@ func _player_disconnected(id) -> void:
 func _connected_ok() -> void:
 	# We just connected to a server
 	emit_signal("connection_succeeded")
+	
+	# Get repeat name list from server
+	rpc_id(0, "give_repeat_names")
+	
+	rpc_id(0, "give_rng_seed")
+	
+	Global.log_normal("After give_repeat_names")
 
 # Callback from SceneTree, only for clients (not server)
 func _server_disconnected() -> void:
@@ -97,7 +116,7 @@ remote func pre_start_game(spawn_points) -> void:
 	Global.set_current_scene(world)
 	get_tree().get_root().add_child(world)
 
-	var player_scene = load("res://scenes/player/player_block.tscn")
+	var player_scene = load("res://scenes/player/player.tscn")
 
 	for p_id in spawn_points:
 		Global.log_normal("Setting player spawn at " + "spawn_points/" + str(spawn_points[p_id]))
@@ -130,7 +149,6 @@ remote func pre_start_game(spawn_points) -> void:
 		post_start_game()
 
 remote func post_start_game() -> void:
-	Global.is_multiplayer = true
 	get_tree().set_pause(false) # Unpause and unleash the game!
 
 remote func ready_to_start(id) -> void:
@@ -151,6 +169,13 @@ func host_game(player_name, port, max_players) -> void:
 	get_tree().set_network_peer(host)
 	
 	repeat_names[player_name] = 0
+	
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	set_rng_seed(rng.seed)
+	
+	if max_players > 1:
+		Global.is_multiplayer = true
 
 func join_game(player_name: String, ip: String, port: int) -> void:
 	my_info.name = player_name
@@ -158,8 +183,13 @@ func join_game(player_name: String, ip: String, port: int) -> void:
 	host.create_client(ip, port)
 	get_tree().set_network_peer(host)
 	
-	# Should recieve from server, not setting it to 0.
-	repeat_names[player_name] = 0
+remote func set_repeat_names(names: Dictionary) -> void:
+	Global.log_normal("set_repeat_names")
+	repeat_names = names
+	
+remote func give_repeat_names() -> void:
+	Global.log_normal("give_repeat_names")
+	rpc_id(get_tree().get_rpc_sender_id(), "set_repeat_names", repeat_names)
 
 func get_player_list() -> Array:
 	return player_info.values()
@@ -200,3 +230,4 @@ func end_game() -> void:
 	emit_signal("game_ended")
 	player_info.clear()
 	get_tree().set_network_peer(null) # End networking
+	Global.is_multiplayer = false

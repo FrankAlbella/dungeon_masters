@@ -3,4 +3,4 @@ extends Spatial
 class_name MainMenu
 
 func _ready():
-	pass
+	$start_room/geometry.show()

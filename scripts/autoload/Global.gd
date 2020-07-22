@@ -1,3 +1,4 @@
+tool
 extends Node
 
 signal log_message(msg)
@@ -11,6 +12,8 @@ const PAUSE_MENU_SCENE = preload("res://scenes/menus/PauseMenu.tscn")
 var pause_scene = null
 
 var stage_list = {
+	"Dungeon Test Stage": "res://scenes/stages/dungeon_stage.tscn",
+	"Generated Dungeon Stage": "res://scenes/stages/generated_dungeon_stage.tscn",
 	"3D Platformer": "res://scenes/stages/stage.scn",
 	"Test Stage": "res://scenes/stages/test_stage.tscn"
 }
@@ -19,6 +22,8 @@ var canvas_layer = null
 
 var current_scene = null
 var is_multiplayer = false
+
+var rng_seed = 1
 
 func _ready():
 	var root = get_tree().get_root()

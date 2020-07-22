@@ -9,6 +9,8 @@ func _ready():
 	Gamestate.connect("player_list_changed", self, "refresh_lobby")
 	refresh_lobby()
 	populate_stages()
+	$HBoxContainer/Players.visible = Global.is_multiplayer
+	
 
 
 remote func change_stage(id: int) -> void:

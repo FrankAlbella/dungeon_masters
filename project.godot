@@ -26,7 +26,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Dungeon Masters (test)"
+config/name="Sprite Dungeon"
 run/main_scene="res://scenes/menus/3DMenu.tscn"
 config/icon="res://icon.png"
 
@@ -176,7 +176,7 @@ ctrl={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777238,"unicode":0,"echo":false,"script":null)
  ]
 }
-change_color={
+special={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"unicode":0,"echo":false,"script":null)
  ]
@@ -193,5 +193,5 @@ multithread/thread_rid_pool_prealloc=60
 
 [rendering]
 
-environment/default_environment="res://default_environment.tres"
+environment/default_environment="res://scenes/environment/WorldEnvironment.tres"
 quality/msaa=2

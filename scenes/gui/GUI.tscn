@@ -94,5 +94,7 @@ align = 2
 [node name="Reticle" type="TextureRect" parent="."]
 margin_right = 1870.0
 margin_bottom = 1030.0
+size_flags_horizontal = 7
+size_flags_vertical = 7
 texture = ExtResource( 6 )
 stretch_mode = 4

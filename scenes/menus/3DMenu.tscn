@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scenes/player/player_block_dummy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/player/player_dummy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/Menus.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/menus/3DMenu.gd" type="Script" id=3]
+[ext_resource path="res://scenes/prefab/start_room.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Environment" id=1]
 background_mode = 3
@@ -10,17 +11,11 @@ ambient_light_color = Color( 0.0509804, 0.0509804, 0.0509804, 1 )
 glow_enabled = true
 glow_intensity = 1.89
 
-[sub_resource type="PlaneMesh" id=2]
-size = Vector2( 75, 75 )
-
-[sub_resource type="SpatialMaterial" id=3]
-metallic = 0.5
-
-[sub_resource type="PlaneMesh" id=4]
-size = Vector2( 25, 25 )
-
-[sub_resource type="SpatialMaterial" id=5]
-metallic = 0.5
+[sub_resource type="BakedLightmapData" id=2]
+bounds = AABB( -10, -10, -10, 20, 20, 20 )
+cell_space_transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 40, 40, 40 )
+cell_subdiv = 8
+octree = PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255 )
 
 [node name="3DMenu" type="Spatial"]
 script = ExtResource( 3 )
@@ -28,35 +23,19 @@ script = ExtResource( 3 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
-[node name="Floor" type="MeshInstance" parent="."]
-mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
-
-[node name="Wall" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, -4 )
-mesh = SubResource( 4 )
-material/0 = SubResource( 5 )
-
-[node name="player_block_dummy" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.546166, 0, 0.804253 )
-
-[node name="front_light" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39517, 1.39487, 3.45503 )
-light_color = Color( 0.74902, 0.831373, 0.952941, 1 )
-light_energy = 4.0
-shadow_enabled = true
-shadow_reverse_cull_face = true
-spot_angle_attenuation = 0.482969
-
-[node name="top_light" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.39517, 4.20809, 0.883235 )
-light_color = Color( 0.74902, 0.831373, 0.952941, 1 )
-light_energy = 4.0
-shadow_enabled = true
-shadow_reverse_cull_face = true
-spot_angle_attenuation = 0.482969
-
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.987724, 0.156208, 0, -0.156208, 0.987724, -1.62641, 1.43572, 2.88809 )
 
 [node name="Menus" parent="." instance=ExtResource( 2 )]
+
+[node name="start_room" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.556, 0, 0 )
+
+[node name="player_dummy" parent="." groups=[
+"player",
+] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.546166, 0, 0.804253 )
+rotate = true
+
+[node name="BakedLightmap" type="BakedLightmap" parent="."]
+light_data = SubResource( 2 )
