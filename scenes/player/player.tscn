@@ -1,32 +1,33 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/atlas/spritesheet-8way.png" type="Texture" id=2]
 [ext_resource path="res://scenes/player/Nametag.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/sounds/footsteps/sneaker-concrete.ogg" type="AudioStream" id=4]
 [ext_resource path="res://scenes/gui/GUI.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/sounds/sound_shoot.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/sounds/sound_shoot.ogg" type="AudioStream" id=6]
+[ext_resource path="res://scenes/menus/PauseMenu.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.25
-height = 1.1006
+height = 1.25
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 7
+flags = 23
 atlas = ExtResource( 2 )
 region = Rect2( 4731, 55, 1238, 1960 )
 
-[node name="player" type="KinematicBody"]
+[node name="player" type="KinematicBody" groups=[
+"player",
+"player_alive",
+]]
 collision_layer = 3
 script = ExtResource( 1 )
+MANA_REGEN_RATE = 0.321
 
 [node name="Collision_Body" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.800572, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.875, 0 )
 shape = SubResource( 1 )
-
-[node name="ARVROrigin" type="ARVROrigin" parent="."]
-
-[node name="ARVRCamera" type="ARVRCamera" parent="ARVROrigin"]
 
 [node name="rotation_helper" type="Spatial" parent="."]
 
@@ -37,24 +38,27 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49215, -0.0863764 )
 fov = 90.0
 
 [node name="ShootPosition" type="Position3D" parent="rotation_helper/camera_rot/camera"]
-transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, 0, -0.403561 )
+transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, 0, 0 )
 
 [node name="player_sprite" type="Sprite3D" parent="."]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 1.0064, 0 )
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 1, 0 )
 billboard = 2
 texture = SubResource( 2 )
 
 [node name="Nametag" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2438, 0 )
+name_tag = ""
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="GUI" parent="." instance=ExtResource( 5 )]
 
+[node name="PauseMenu" parent="." instance=ExtResource( 7 )]
+visible = false
+
 [node name="sound_shoot" type="AudioStreamPlayer3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.564, 0 )
 stream = ExtResource( 6 )
-pitch_scale = 11.0
 bus = "Effects"
 
 [node name="sound_footstep" type="AudioStreamPlayer3D" parent="."]
@@ -63,3 +67,8 @@ stream = ExtResource( 4 )
 pitch_scale = 0.4
 bus = "Effects"
 area_mask = 2147483649
+
+[node name="timer_regen" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+[connection signal="timeout" from="timer_regen" to="." method="_on_timer_regen_timeout"]

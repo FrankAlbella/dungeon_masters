@@ -1,5 +1,10 @@
 extends KinematicBody
 
+class_name player
+
+signal died
+signal score_changed
+
 # MOVEMENT CONSTANTS
 const GRAVITY = -26
 const MAX_SPEED = 6
@@ -35,19 +40,27 @@ puppet var puppet_color := Color()
 puppet var puppet_is_shooting = false
 
 # PLAYER CONSTANTS
-const MAX_HEALTH = 10
+export var MAX_HEALTH = 10
+export var MAX_MANA = 10
+
+export var HEALTH_REGEN_RATE = .2
+export var MANA_REGEN_RATE = .8
 
 # PLAYER VARIABLES
 var player_name = ""
 var health = MAX_HEALTH
+var mana = MAX_MANA
 var spawn_id = 0
+var score = 0
 
 var controlled = false
 var fly_mode = false
 
-onready var _anim = $rotation_helper/player/AnimationPlayer
+#onready var _anim = $rotation_helper/player/AnimationPlayer
 
 onready var _shoot_pos = $rotation_helper/camera_rot/camera/ShootPosition
+
+export var projectile_scene = preload("res://scenes/props/magic_missile.tscn")
 
 func _init():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -59,32 +72,60 @@ func _ready():
 	
 	if controlled:
 		$rotation_helper/camera_rot/camera.make_current()
-		var VR = ARVRServer.find_interface("OpenVR");
-		# If the OpenVR interface was found and initialization is successful...
-		if VR and VR.initialize():
-			print("OpenVR interface found and initialized")
-			# Turn the main viewport into a AR/VR viewport and turn off HDR
-			get_viewport().arvr = true
-			get_viewport().hdr = false
-		
-			# Let's disable VSync so the FPS is not capped and set the target FPS to 90,
-			# which is standard for most VR headsets.
-			#
-			# This is not strictly required, but it will make the experience smoother for most VR headsets
-			# and then the computer monitor's VSync will not effect the VR headset.
-			OS.vsync_enabled = false
-			Engine.iterations_per_second = 90
-			$rotation_helper/ARVROrigin/ARVRCamera.make_current()
 		$Nametag.hide()
 		$player_sprite.hide()
+# warning-ignore:return_value_discarded
+		connect("score_changed", $GUI, "_on_score_changed")
 	else:
 		$GUI.hide()
-		
-	#_anim.play("walk")
+	
+
+remotesync func add_score(points: int) -> void:
+	score += points
+	rpc("_update_score", score)
+	#if controlled: 
+	#	$GUI.update_score(score)
+	
+remotesync func _update_score(new_score: int) -> void: 
+	score = new_score
+	emit_signal("score_changed", new_score)
 
 remotesync func set_player_name(new_player_name: String) -> void:
 	player_name = new_player_name
-	$Nametag.set_name(player_name)
+	$Nametag.name_tag = player_name
+	
+remotesync func take_damage(dmg: float, _source: Node) -> void:
+	health -= dmg
+	
+	if controlled:
+		$GUI.update_health(health)
+	
+	if health <= 0:
+		die()
+		
+remotesync func die():
+	Global.log_normal(player_name + " has died! ahhhhhh", true)
+	heal(MAX_HEALTH)
+	
+	emit_signal("died")
+	
+remotesync func heal(hp: float) -> void:
+	health += hp
+	if health > MAX_HEALTH:
+		health = MAX_HEALTH
+	$GUI.update_health(health)
+	
+remotesync func set_mana(new_mana: float) -> void:
+	mana = new_mana
+	
+	if mana > MAX_MANA:
+			mana = MAX_MANA
+	
+	if controlled:
+		$GUI.update_mana_percent(float(mana)/MAX_MANA)
+	
+	if health <= 0:
+		die()
 	
 func set_spawn_id(id: int) -> void:
 	spawn_id = id
@@ -92,12 +133,18 @@ func set_spawn_id(id: int) -> void:
 func get_spawn_id() -> int:
 	return spawn_id
 	
-func fire_bullet():
-	var bullet = preload("res://scenes/props/bullet.scn").instance()
-	bullet.set_transform($"rotation_helper/camera_rot/camera/ShootPosition".get_global_transform().orthonormalized())
+remotesync func fire_bullet(shoot_transform: Transform) -> void:
+	var bullet = projectile_scene.instance()
+	if mana < bullet.mana_cost:
+		bullet.queue_free()
+		return 
+	set_mana(mana - bullet.mana_cost)
+	bullet.source = self
+	bullet.set_transform(shoot_transform.orthonormalized())
 	get_parent().add_child(bullet)
-	bullet.set_linear_velocity($"rotation_helper/camera_rot/camera/ShootPosition".get_global_transform().basis[2].normalized() * 100)
+	bullet.set_linear_velocity(shoot_transform.basis[2].normalized() * bullet.speed)
 	bullet.add_collision_exception_with(self) # Add it to bullet
+	#if not $sound_shoot.is_playing():
 	$sound_shoot.play()
 
 func _input(event):
@@ -118,8 +165,9 @@ func _input(event):
 	if event is InputEventKey and event.pressed:
 		if Input.is_action_just_pressed("special"):
 			fly_mode = !fly_mode
+			set_collision_mask_bit(0, int(!fly_mode))
+			set_collision_layer_bit(0, int(!fly_mode))
 		
-	
 func _physics_process(delta):
 	process_input(delta)
 	process_movement(delta)
@@ -128,10 +176,10 @@ func _physics_process(delta):
 func process_sprite():
 	if not controlled:
 		var player_node = get_viewport().get_camera()
-		var dir = $rotation_helper/camera_rot.global_transform.basis.z
+		var look_dir = $rotation_helper/camera_rot.global_transform.basis.z
 		var pos = $rotation_helper/camera_rot.global_transform.origin
 		var plyrPos = player_node.get_global_transform().origin
-		var a = Vector2(dir.x, dir.z) # Direction Sprite is looking
+		var a = Vector2(look_dir.x, look_dir.z) # Direction Sprite is looking
 		var dir2Plyr = Vector2(plyrPos.x - pos.x, plyrPos.z - pos.z)
 		var angle = a.angle_to(dir2Plyr)
 		angle = rad2deg(angle) - 22.5
@@ -197,6 +245,9 @@ func process_input(delta):
 			
 		rotation_degrees = cam_xform.basis.y
 		
+		if is_shooting:
+			rpc("fire_bullet", _shoot_pos.get_global_transform())
+		
 		rset("puppet_dir", dir)
 		rset("puppet_pos", translation)
 		rset("puppet_is_shooting", is_shooting)
@@ -207,18 +258,6 @@ func process_input(delta):
 		translation = puppet_pos
 		dir = puppet_dir
 		is_shooting = puppet_is_shooting
-		
-	if is_shooting:
-		fire_bullet()
-		
-	# If no movement
-	#if dir == Vector3():
-	#	_anim.play("default", -1, 0.8)
-	#else:
-	#	if is_sprinting:
-	#		_anim.play("walk", -1, 1.3)
-	#	else:
-	#		_anim.play("walk", -1)
 		
 	if not controlled:
 		puppet_pos = translation # To avoid jitter
@@ -265,10 +304,14 @@ func process_movement(delta):
 	if (dir.x != 0 or dir.z != 0) and is_on_floor():
 		if not $sound_footstep.playing:
 			$sound_footstep.play()
-	#else:
-	#	$sound_footstep.stop()
 	
 	vel = move_and_slide(vel, Vector3.UP, true, 4, deg2rad(40))
 	
-	
-
+func _on_timer_regen_timeout():
+	if health < MAX_HEALTH:
+		heal(HEALTH_REGEN_RATE)
+	if mana < MAX_MANA:
+		rpc("set_mana", mana + MANA_REGEN_RATE)
+		#set_mana(mana + MANA_REGEN_RATE)
+		
+		

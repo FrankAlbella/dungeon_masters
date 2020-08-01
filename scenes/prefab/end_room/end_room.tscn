@@ -1,0 +1,129 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://scripts/prefab/connection_node.gd" type="Script" id=1]
+[ext_resource path="res://assets/materials/floor.material" type="Material" id=2]
+[ext_resource path="res://scripts/prefab/prefab.gd" type="Script" id=3]
+[ext_resource path="res://assets/materials/ceiling.material" type="Material" id=4]
+[ext_resource path="res://assets/materials/wall.material" type="Material" id=5]
+[ext_resource path="res://scenes/props/teleporter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/prefab/door.tscn" type="PackedScene" id=7]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 4, 6 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 2, 0, 3 )
+
+[sub_resource type="PlaneMesh" id=3]
+size = Vector2( 6, 4 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0, 2, 3 )
+
+[sub_resource type="PlaneMesh" id=5]
+size = Vector2( 4, 4 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 2, 2, 0.001 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 3, 5, 5 )
+
+[sub_resource type="BakedLightmapData" id=8]
+bounds = AABB( -3, -3, -4, 6, 6, 8 )
+cell_space_transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 12, 12, 16 )
+cell_subdiv = 6
+octree = PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255 )
+
+[node name="end_room" type="Spatial"]
+script = ExtResource( 3 )
+type = "End Room"
+
+[node name="connection_points" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
+
+[node name="0" type="Position3D" parent="connection_points"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+script = ExtResource( 1 )
+
+[node name="door" parent="connection_points/0" instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+locked = false
+open = false
+
+[node name="geometry" type="Spatial" parent="."]
+
+[node name="teleporter" parent="geometry" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+
+[node name="floor" type="StaticBody" parent="geometry"]
+
+[node name="MeshInstance" type="MeshInstance" parent="geometry/floor"]
+material_override = ExtResource( 2 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="geometry/floor"]
+shape = SubResource( 2 )
+
+[node name="ceiling" type="StaticBody" parent="geometry"]
+transform = Transform( 1, 0, 0, 0, -1, 3.25841e-07, 0, -3.25841e-07, -1, 0, 4, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="geometry/ceiling"]
+material_override = ExtResource( 4 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="geometry/ceiling"]
+shape = SubResource( 2 )
+
+[node name="left_wall" type="StaticBody" parent="geometry"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="geometry/left_wall"]
+transform = Transform( -1.62921e-07, 1, 0, 1.62921e-07, 2.65431e-14, -1, -1, -1.62921e-07, -1.62921e-07, 0, 0, 0 )
+material_override = ExtResource( 5 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="geometry/left_wall"]
+shape = SubResource( 4 )
+
+[node name="right_wall" type="StaticBody" parent="geometry"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="geometry/right_wall"]
+transform = Transform( -1.62921e-07, -1, 0, -1.62921e-07, 2.65431e-14, -1, 1, -1.62921e-07, -1.62921e-07, 0, 0, 0 )
+material_override = ExtResource( 5 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="geometry/right_wall"]
+shape = SubResource( 4 )
+
+[node name="back_wall" type="StaticBody" parent="geometry"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="geometry/back_wall"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+material_override = ExtResource( 5 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="geometry/back_wall"]
+shape = SubResource( 6 )
+
+[node name="visible_area" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="visible_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2 )
+shape = SubResource( 7 )
+
+[node name="BakedLightmap" type="BakedLightmap" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+bake_extents = Vector3( 3, 3, 4 )
+light_data = SubResource( 8 )
+[connection signal="body_entered" from="visible_area" to="." method="_on_visible_area_body_entered"]
+[connection signal="body_exited" from="visible_area" to="." method="_on_visible_area_body_exited"]

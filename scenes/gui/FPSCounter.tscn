@@ -5,4 +5,5 @@
 
 [node name="FPSCounter" instance=ExtResource( 1 )]
 pause_mode = 2
+visible = false
 script = ExtResource( 2 )

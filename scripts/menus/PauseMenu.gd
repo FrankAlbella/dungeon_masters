@@ -1,12 +1,13 @@
 extends PopupPanel
 
 func _ready():
-	set_process_input(false)
+	set_process_input(true)
 	#show()
-	pass 
 	
-#func _input(event):
-	#Global.log_normal("There was an unhandled event!!!")
+func _input(event):
+	if event is InputEventKey:
+		if Input.is_action_just_pressed("ui_cancel"):
+			toggle_pause()
 
 func toggle_pause():
 	if visible:

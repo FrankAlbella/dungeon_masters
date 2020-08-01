@@ -1,0 +1,17 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/IMG_2682.PNG-34f2427719b2b2747519ebfcbdf4b314.res"
+group_file="res://assets/atlas/char3.png"
+valid=true
+[deps]
+
+
+source_file="res://assets/sprites/player/IMG_2682.PNG"
+dest_files=[ "res://.import/IMG_2682.PNG-34f2427719b2b2747519ebfcbdf4b314.res" ]
+
+[params]
+
+atlas_file="res://assets/atlas/char3.png"
+import_mode=0

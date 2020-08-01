@@ -1,0 +1,111 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/materials/floor.material" type="Material" id=1]
+[ext_resource path="res://scenes/prefab/connection_node.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/prefab/prefab.gd" type="Script" id=3]
+[ext_resource path="res://scenes/props/light/torch.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/materials/ceiling.material" type="Material" id=5]
+[ext_resource path="res://assets/materials/wall.material" type="Material" id=6]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 4, 0, 2 )
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 8, 4, 0 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 4, 2, 0 )
+
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 8, 0, 4 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 8, 2, 3 )
+
+[sub_resource type="BakedLightmapData" id=6]
+bounds = AABB( -5, -2.12914, -2.1, 10, 4.25827, 4.2 )
+cell_space_transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 20, 8.51654, 8.4 )
+cell_subdiv = 7
+octree = PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255 )
+
+[node name="hallway" type="StaticBody"]
+script = ExtResource( 3 )
+
+[node name="collision_floor" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="connection_points" type="Spatial" parent="."]
+
+[node name="0" parent="connection_points" instance=ExtResource( 2 )]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -4, 0, 0 )
+
+[node name="1" parent="connection_points" instance=ExtResource( 2 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 4, 0, 0 )
+
+[node name="geometry" type="Spatial" parent="."]
+
+[node name="torch" parent="geometry" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.362, -1.872 )
+
+[node name="torch2" parent="geometry" instance=ExtResource( 4 )]
+transform = Transform( 1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 1.362, 1.87199 )
+
+[node name="wall" type="StaticBody" parent="geometry"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1 )
+
+[node name="mesh" type="MeshInstance" parent="geometry/wall"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1 )
+use_in_baked_light = true
+mesh = SubResource( 2 )
+material/0 = ExtResource( 6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="geometry/wall"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1 )
+shape = SubResource( 3 )
+
+[node name="wall2" type="StaticBody" parent="geometry"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3 )
+
+[node name="mesh" type="MeshInstance" parent="geometry/wall2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1 )
+use_in_baked_light = true
+mesh = SubResource( 2 )
+material/0 = ExtResource( 6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="geometry/wall2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1 )
+shape = SubResource( 3 )
+
+[node name="ceiling" type="StaticBody" parent="geometry"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+
+[node name="mesh" type="MeshInstance" parent="geometry/ceiling"]
+material_override = ExtResource( 5 )
+use_in_baked_light = true
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="geometry/ceiling"]
+shape = SubResource( 1 )
+
+[node name="floor" type="MeshInstance" parent="geometry"]
+material_override = ExtResource( 1 )
+use_in_baked_light = true
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="visible_area" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="visible_area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+shape = SubResource( 5 )
+
+[node name="BakedLightmap" type="BakedLightmap" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+bake_extents = Vector3( 5, 2.12914, 2.1 )
+light_data = SubResource( 6 )
+[connection signal="body_entered" from="visible_area" to="." method="_on_visible_area_body_entered"]
+[connection signal="body_exited" from="visible_area" to="." method="_on_visible_area_body_exited"]

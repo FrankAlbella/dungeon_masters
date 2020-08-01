@@ -9,19 +9,37 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://git_api.gdns"
-}, {
 "base": "Spatial",
 "class": "MainMenu",
 "language": "GDScript",
 "path": "res://scripts/menus/3DMenu.gd"
+}, {
+"base": "Position3D",
+"class": "connection_node",
+"language": "GDScript",
+"path": "res://scripts/prefab/connection_node.gd"
+}, {
+"base": "KinematicBody",
+"class": "player",
+"language": "GDScript",
+"path": "res://scripts/player/player.gd"
+}, {
+"base": "Spatial",
+"class": "prefab",
+"language": "GDScript",
+"path": "res://scripts/prefab/prefab.gd"
+}, {
+"base": "RigidBody",
+"class": "projectile",
+"language": "GDScript",
+"path": "res://scripts/props/magic_missile.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": "",
-"MainMenu": ""
+"MainMenu": "",
+"connection_node": "",
+"player": "",
+"prefab": "",
+"projectile": ""
 }
 
 [application]
@@ -29,6 +47,7 @@ _global_script_class_icons={
 config/name="Sprite Dungeon"
 run/main_scene="res://scenes/menus/3DMenu.tscn"
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
@@ -44,10 +63,11 @@ Utility="*res://scripts/autoload/Utility.gd"
 window/size/width=1920
 window/size/height=1080
 window/stretch/mode="2d"
+window/stretch/aspect="keep_width"
 
 [gdnative]
 
-singletons=[ "res://git_api.gdnlib" ]
+singletons=[  ]
 
 [input]
 
@@ -184,6 +204,11 @@ special={
 shoot_rapid={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+chat={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
  ]
 }
 

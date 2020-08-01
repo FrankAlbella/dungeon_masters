@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/materials/wall.material" type="Material" id=1]
+[ext_resource path="res://scripts/prefab/door.gd" type="Script" id=2]
+[ext_resource path="res://assets/sounds/door_open2.ogg" type="AudioStream" id=3]
+[ext_resource path="res://scenes/mesh/doorway.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CubeMesh" id=1]
+material = ExtResource( 1 )
+size = Vector3( 0.25, 3, 4 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.125, 1.5, 2 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 1, 1.5, 2 )
+
+[node name="door" type="Spatial"]
+script = ExtResource( 2 )
+locked = true
+
+[node name="doorway" parent="." instance=ExtResource( 4 )]
+transform = Transform( -8.74228e-08, 0, -2, 0, 1.5, 0, 2, 0, -8.74228e-08, 0, 0, 0 )
+
+[node name="door_staticbody" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="door_staticbody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+use_in_baked_light = true
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="door_staticbody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+shape = SubResource( 2 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="door_staticbody"]
+stream = ExtResource( 3 )
+bus = "Effects"
+
+[node name="Area" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 2147483650
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]

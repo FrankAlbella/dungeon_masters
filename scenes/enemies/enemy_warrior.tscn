@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/player/8way_sprite.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/enemies/enemy_warrior.gd" type="Script" id=2]
+[ext_resource path="res://assets/sounds/hit.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/sounds/sound_shoot.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/sounds/footsteps/sneaker-concrete.ogg" type="AudioStream" id=6]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.25
+height = 1.24884
+
+[node name="enemy_warrior" type="KinematicBody" groups=[
+"enemy",
+]]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource( 2 )
+enemy_name = "Warrior"
+
+[node name="8 Way Sprite" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.102084, 0, 0, 0, 0.102084, 1.21694e-08, 0, -1.21694e-08, 0.102084, 0, 1.00417, -1.1724e-13 )
+modulate = Color( 0.988235, 0.00392157, 0.00392157, 1 )
+region_rect = Rect2( 4731, 55, 1238, 1960 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1.02084, 0, 0, 0, -1.66316e-07, 1.02084, 0, -1.02084, -1.66316e-07, 0, 1, 0 )
+shape = SubResource( 1 )
+
+[node name="shoot_position" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1958, 0 )
+
+[node name="sound_hurt" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.63698, 0 )
+stream = ExtResource( 4 )
+unit_size = 6.0
+bus = "Effects"
+
+[node name="sound_shoot" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+stream = ExtResource( 5 )
+bus = "Effects"
+
+[node name="sound_footstep" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 6 )
+pitch_scale = 0.4
+bus = "Effects"
+
+[node name="shoot_cooldown" type="Timer" parent="."]
+wait_time = 0.25
+[connection signal="timeout" from="shoot_cooldown" to="." method="_on_shoot_cooldown_timeout"]

@@ -1,0 +1,217 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/materials/floor.material" type="Material" id=1]
+[ext_resource path="res://scripts/stages/combat_stage.gd" type="Script" id=2]
+[ext_resource path="res://assets/materials/wall.material" type="Material" id=5]
+[ext_resource path="res://scenes/props/light/torch.tscn" type="PackedScene" id=7]
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 24, 2, 24 )
+
+[sub_resource type="SpatialMaterial" id=3]
+metallic = 0.29
+roughness = 0.49
+emission_enabled = true
+emission = Color( 0.0823529, 0.0823529, 0.0823529, 1 )
+emission_energy = 0.66
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="PlaneMesh" id=14]
+size = Vector2( 24, 4 )
+
+[sub_resource type="BoxShape" id=15]
+extents = Vector3( 12, 2, 0.001 )
+
+[sub_resource type="BoxShape" id=4]
+
+[sub_resource type="BakedLightmapData" id=13]
+bounds = AABB( -17.4861, -10, -30.7211, 34.9722, 20, 61.4422 )
+cell_space_transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 69.9445, 40, 122.884 )
+cell_subdiv = 9
+octree = PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255 )
+
+[node name="world" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="spawn_points" type="Spatial" parent="."]
+
+[node name="0" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.282988, 0 )
+
+[node name="1" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.282988, 0.70356 )
+
+[node name="3" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.282988, -1.39667 )
+
+[node name="2" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.282988, -0.693115 )
+
+[node name="7" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987657, 0.282988, 0 )
+
+[node name="6" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987657, 0.282988, 0.70356 )
+
+[node name="5" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987657, 0.282988, -1.39667 )
+
+[node name="4" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987657, 0.282988, -0.693115 )
+
+[node name="11" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88149, 0.282988, 0 )
+
+[node name="10" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88149, 0.282988, 0.70356 )
+
+[node name="9" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88149, 0.282988, -1.39667 )
+
+[node name="8" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88149, 0.282988, -0.693115 )
+
+[node name="15" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.91686, 0.282988, 0 )
+
+[node name="14" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.91686, 0.282988, 0.70356 )
+
+[node name="13" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.91686, 0.282988, -1.39667 )
+
+[node name="12" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.91686, 0.282988, -0.693115 )
+
+[node name="enemy_sp" type="Spatial" parent="."]
+
+[node name="0" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.83775, 0, 8.40962 )
+
+[node name="1" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.07283, 0, 8.40962 )
+
+[node name="2" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.46909, 0, 8.40962 )
+
+[node name="3" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.13548, 0, 8.40962 )
+
+[node name="4" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.13548, 0, -0.489209 )
+
+[node name="5" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.13548, 0, 3.59202 )
+
+[node name="6" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.13548, 0, -4.63788 )
+
+[node name="7" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.13548, 0, -8.91809 )
+
+[node name="8" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.43858, 0, -8.91809 )
+
+[node name="9" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.29982, 0, -8.91809 )
+
+[node name="10" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.09193, 0, -8.91809 )
+
+[node name="11" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.54778, 0, -8.91809 )
+
+[node name="12" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.54778, 0, -3.98829 )
+
+[node name="13" type="Position3D" parent="enemy_sp"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.54778, 0, 3.49973 )
+
+[node name="players" type="Spatial" parent="."]
+
+[node name="floor" type="StaticBody" parent="."]
+
+[node name="floor" type="MeshInstance" parent="floor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+material_override = ExtResource( 1 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="floor"]
+transform = Transform( 12, 0, 0, 0, 1, 0, 0, 0, 12, 0, -1, 0 )
+shape = SubResource( 1 )
+
+[node name="wall1" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="wall1"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+material_override = ExtResource( 5 )
+mesh = SubResource( 14 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="wall1"]
+shape = SubResource( 15 )
+
+[node name="wall2" type="StaticBody" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="wall2"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+material_override = ExtResource( 5 )
+mesh = SubResource( 14 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="wall2"]
+shape = SubResource( 15 )
+
+[node name="wall3" type="StaticBody" parent="."]
+transform = Transform( 1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 12, 2, -2.38419e-07 )
+
+[node name="MeshInstance" type="MeshInstance" parent="wall3"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+material_override = ExtResource( 5 )
+mesh = SubResource( 14 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="wall3"]
+shape = SubResource( 15 )
+
+[node name="wall4" type="StaticBody" parent="."]
+transform = Transform( -2.18557e-07, 0, 1, 0, 1, 0, -1, 0, -2.18557e-07, -12, 2, -2.38419e-07 )
+
+[node name="MeshInstance" type="MeshInstance" parent="wall4"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+material_override = ExtResource( 5 )
+mesh = SubResource( 14 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="wall4"]
+shape = SubResource( 15 )
+
+[node name="fall_area" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="fall_area"]
+transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="torch" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 1 )
+
+[node name="torch2" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, -3 )
+
+[node name="torch3" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.02066, 2, -3.65497 )
+
+[node name="torch4" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.02066, 2, 0.889883 )
+
+[node name="BakedLightmap" type="BakedLightmap" parent="."]
+bake_extents = Vector3( 17.4861, 10, 30.7211 )
+light_data = SubResource( 13 )
+[connection signal="body_entered" from="fall_area" to="." method="_on_fall_area_body_entered"]

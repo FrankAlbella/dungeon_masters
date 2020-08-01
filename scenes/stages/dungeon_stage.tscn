@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/prefab/room/start_room.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/stages/dungeon_stage.gd" type="Script" id=2]
+[ext_resource path="res://scenes/prefab/transition/hallway.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/prefab/transition/staircase.tscn" type="PackedScene" id=4]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 50, 1, 50 )
+
+[node name="world" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="spawn_points" type="Spatial" parent="."]
+
+[node name="0" type="Position3D" parent="spawn_points"]
+
+[node name="1" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25885, 0, 0.237033 )
+
+[node name="2" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7888, 0, -2.22377 )
+
+[node name="3" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.87795 )
+
+[node name="4" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.35604, 0, 2.70039 )
+
+[node name="5" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.64982, 0, 1.19054 )
+
+[node name="6" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.69833 )
+
+[node name="7" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.64584, 0, -2.43742 )
+
+[node name="8" type="Position3D" parent="spawn_points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.42667, 0, -1.47419 )
+
+[node name="players" type="Spatial" parent="."]
+
+[node name="dungeon" type="Spatial" parent="."]
+
+[node name="staircase" parent="dungeon" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.27688, -0.264, 0 )
+
+[node name="start_room" parent="dungeon" instance=ExtResource( 1 )]
+spawn_enemies = false
+
+[node name="start_room2" parent="dungeon" instance=ExtResource( 1 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 4.7226, 3.30186, -16.8826 )
+
+[node name="staircase2" parent="dungeon" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.235, -6.329 )
+
+[node name="hallway" parent="dungeon" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0 )
+
+[node name="fall_area" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.7522, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="fall_area"]
+shape = SubResource( 1 )
+[connection signal="body_entered" from="fall_area" to="." method="_on_fall_area_body_entered"]

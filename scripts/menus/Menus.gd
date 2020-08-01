@@ -2,15 +2,20 @@ extends MarginContainer
 
 onready var main_menu = $HBoxContainer/VBoxContainer/MainMenu
 onready var connect_menu = $ConnectMenu
+onready var version_label = $HBoxContainer/VBoxContainer/Version
 
 func _ready():
 	#Gamestate.connect("connection_failed", self, "_on_connection_failed")
+# warning-ignore:return_value_discarded
 	Gamestate.connect("connection_succeeded", self, "_on_connection_success")
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	update_version()
 	
 	if not UIMusic.playing:
-		UIMusic.play()
-	
+		UIMusic.play_menu_music()
+		
+func update_version():
+	version_label.text = Global.VERSION
 
 func _on_Singleplayer_pressed():
 	_on_ConnectMenu_host("", 0, 1)
@@ -44,7 +49,6 @@ func _on_ConnectMenu_host(player_name: String, port: int, max_players: int) -> v
 	
 	Global.goto_scene("res://scenes/menus/Lobby.tscn")
 	Gamestate.host_game(player_name, port, max_players)
-
 
 func _on_ConnectMenu_join(player_name: String, ip: String, port: int) -> void:
 	Global.log_normal("Server started with the following settings:")

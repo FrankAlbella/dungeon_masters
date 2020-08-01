@@ -1,21 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/player/player_dummy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/Menus.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/menus/3DMenu.gd" type="Script" id=3]
-[ext_resource path="res://scenes/prefab/start_room.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/prefab/room/start_room.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Environment" id=1]
 background_mode = 3
 ambient_light_color = Color( 0.0509804, 0.0509804, 0.0509804, 1 )
 glow_enabled = true
 glow_intensity = 1.89
-
-[sub_resource type="BakedLightmapData" id=2]
-bounds = AABB( -10, -10, -10, 20, 20, 20 )
-cell_space_transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 40, 40, 40 )
-cell_subdiv = 8
-octree = PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255 )
 
 [node name="3DMenu" type="Spatial"]
 script = ExtResource( 3 )
@@ -36,6 +30,3 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.556, 0, 0 )
 ] instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.546166, 0, 0.804253 )
 rotate = true
-
-[node name="BakedLightmap" type="BakedLightmap" parent="."]
-light_data = SubResource( 2 )

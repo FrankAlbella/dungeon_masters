@@ -30,7 +30,7 @@ size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_right = 142.0
-margin_bottom = 65.0
+margin_bottom = 79.0
 size_flags_vertical = 0
 
 [node name="Stats" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
@@ -81,20 +81,59 @@ margin_right = 142.0
 margin_bottom = 65.0
 rect_min_size = Vector2( 0, 10 )
 
-[node name="Log" parent="HBoxContainer" instance=ExtResource( 5 )]
+[node name="mana_bar" type="ColorRect" parent="HBoxContainer/VBoxContainer"]
+margin_top = 69.0
+margin_right = 142.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 0, 10 )
+color = Color( 0.321569, 0.592157, 0.968627, 1 )
+
+[node name="Spacer" type="Control" parent="HBoxContainer"]
 margin_left = 146.0
+margin_right = 1006.0
+margin_bottom = 1030.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 1010.0
 margin_right = 1870.0
 margin_bottom = 1030.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+
+[node name="Log" parent="HBoxContainer/VBoxContainer2" instance=ExtResource( 5 )]
+margin_right = 860.0
+margin_bottom = 13.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 align = 2
+clip_text = true
+max_lines_visible = 50
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer2"]
+visible = false
+margin_top = 17.0
+margin_right = 860.0
+margin_bottom = 41.0
+align = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Reticle" type="TextureRect" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 margin_right = 1870.0
 margin_bottom = 1030.0
-size_flags_horizontal = 7
-size_flags_vertical = 7
+
+[node name="Reticle" type="TextureRect" parent="CenterContainer"]
+margin_left = 871.0
+margin_top = 451.0
+margin_right = 999.0
+margin_bottom = 579.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource( 6 )
-stretch_mode = 4
+stretch_mode = 3

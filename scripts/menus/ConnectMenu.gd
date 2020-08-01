@@ -18,6 +18,7 @@ var is_host
 var prev_ip
 
 func _ready():
+# warning-ignore:return_value_discarded
 	Gamestate.connect("connection_failed", self, "_on_connection_failed")
 	load_settings()
 	
@@ -43,7 +44,6 @@ func _on_connection_failed():
 	port.editable = true
 	
 	connect_button.disabled = false
-	cancel_button.disabled = false
 
 func display_and_log_error(msg):
 	Global.log_error(msg)
@@ -70,6 +70,12 @@ func _on_Host_pressed(host):
 	show()
 	
 func _on_Cancel_pressed():
+	get_tree().set_network_peer(null)
+	player_name.editable = true
+	ip_address.editable = true
+	port.editable = true
+	
+	connect_button.disabled = false
 	hide()
 
 
@@ -101,6 +107,5 @@ func _on_Connect_pressed() -> void:
 		port.editable = false
 		
 		connect_button.disabled = true
-		cancel_button.disabled = true
 		emit_signal("join", player_name.text, ip_address.text, int(port.text))
 		

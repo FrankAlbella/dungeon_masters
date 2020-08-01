@@ -6,6 +6,7 @@ signal connection_failed()
 signal connection_succeeded()
 signal game_ended()
 signal game_error(error)
+signal change_stage_selection(id)
 
 puppet var stage_path := ""
 
@@ -19,22 +20,53 @@ var repeat_names = {}
 
 var rng_seed = 1
 
+var spawn_point_nodes
+
+var is_server = false
+
+onready var rng = RandomNumberGenerator.new()
+
+var selected_stage_id = 0
+
 func _ready() -> void:
+# warning-ignore:return_value_discarded
 	get_tree().connect("network_peer_connected", self, "_player_connected")
+# warning-ignore:return_value_discarded
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
+# warning-ignore:return_value_discarded
 	get_tree().connect("connected_to_server", self, "_connected_ok")
+# warning-ignore:return_value_discarded
 	get_tree().connect("connection_failed", self, "_connected_fail")
+# warning-ignore:return_value_discarded
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
+func get_spawn_points() -> Node:
+	return spawn_point_nodes
+	
+func get_player_count() -> int:
+	return player_info.size() + 1
+
+func get_random_int(max_value, min_value) -> int:
+	return rng.randi()%max_value+min_value
+
 func get_rng_seed() -> int:
 	return rng_seed
 
 remote func set_rng_seed(_seed: int) -> void:
 	rng_seed = _seed
+	seed(rng_seed)
 	
 remote func give_rng_seed() -> void:
 	Global.log_normal("give_rng_seed")
 	rpc_id(get_tree().get_rpc_sender_id(), "set_rng_seed", rng_seed)
+	
+remote func set_selected_stage(id: int) -> void:
+	selected_stage_id = id
+	emit_signal("change_stage_selection", id)
+	
+remote func give_selected_stage() -> void:
+	Global.log_normal("give_selected_stage")
+	rpc_id(get_tree().get_rpc_sender_id(), "set_selected_stage", selected_stage_id)
 
 func _player_connected(id) -> void:
 	# Called on both clients and server when a peer connects. Send my info to it.
@@ -47,17 +79,16 @@ func _connected_ok() -> void:
 	# We just connected to a server
 	emit_signal("connection_succeeded")
 	
-	# Get repeat name list from server
-	rpc_id(0, "give_repeat_names")
+	# Get rng seed from server
+	rpc_id(1, "give_rng_seed")
 	
-	rpc_id(0, "give_rng_seed")
+	rpc_id(1, "give_selected_stage")
 	
-	Global.log_normal("After give_repeat_names")
 
 # Callback from SceneTree, only for clients (not server)
 func _server_disconnected() -> void:
 	end_game()
-	emit_signal("game_error", "Server disconnected")
+	emit_signal("game_error", "Server closed")
 
 func _connected_fail() -> void:
 	get_tree().set_network_peer(null) # Remove peer
@@ -67,12 +98,7 @@ remote func register_player(info: Dictionary) -> void:
 	# Get the id of the RPC sender.
 	var id = get_tree().get_rpc_sender_id()
 	
-	# Extremely buggy
-	# Names are only accurate after the 1st repeat
-	# 1st repeat won't register the repeat
-	# Subsequent will have their own names set accurately, but the names of others will be in validated
-	info.name = validate_username(info.name)
-	rpc_id(id, "set_player_name", info.name)
+	#rpc_id(id, "set_player_name", info.name)
 	
 	Global.log_normal(info.name + " (" + str(id) + ") connected", true)
 	
@@ -87,24 +113,6 @@ func unregister_player(id) -> void:
 	if not Global.get_current_scene().get_node("players/" + str(id)) == null:
 		Global.get_current_scene().get_node("players/" + str(id)).queue_free()
 	emit_signal("player_list_changed")
-	
-# Checks if the username is already in the lobby
-# If it is, it appends a (#) counter for how often the name appears
-func validate_username(username: String) -> String:
-	if repeat_names.has(username):
-		Global.log_normal("Repeat name connected: " + username)
-		repeat_names[username] += 1
-	else: 
-		repeat_names[username] = 0
-	
-	var count = repeat_names[username]
-	#for p_id in player_info:
-		
-			
-	if count > 0:
-		username += " (" + str(count) + ")"
-		
-	return username
 
 remote func pre_start_game(spawn_points) -> void:
 	UIMusic.stop()
@@ -117,10 +125,12 @@ remote func pre_start_game(spawn_points) -> void:
 	get_tree().get_root().add_child(world)
 
 	var player_scene = load("res://scenes/player/player.tscn")
+	
+	spawn_point_nodes = world.get_node("spawn_points")
 
 	for p_id in spawn_points:
 		Global.log_normal("Setting player spawn at " + "spawn_points/" + str(spawn_points[p_id]))
-		var spawn_pos = world.get_node("spawn_points/" + str(spawn_points[p_id])).translation
+		var spawn_pos = spawn_point_nodes.get_node(str(spawn_points[p_id])).translation
 		
 		Global.log_normal("Instancing player")
 		var player = player_scene.instance()
@@ -136,7 +146,7 @@ remote func pre_start_game(spawn_points) -> void:
 			player.set_player_name(my_info.name)
 		else:
 			# Otherwise set name from peer
-			player.set_player_name(player_info[p_id].server_name)
+			player.set_player_name(player_info[p_id].name)
 		
 		Global.log_normal("Adding player to world")
 		world.get_node("players").add_child(player)
@@ -170,9 +180,10 @@ func host_game(player_name, port, max_players) -> void:
 	
 	repeat_names[player_name] = 0
 	
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	set_rng_seed(rng.seed)
+	var rng_seeder = RandomNumberGenerator.new()
+	rng_seeder.randomize()
+	set_rng_seed(rng_seeder.seed)
+	is_server = true
 	
 	if max_players > 1:
 		Global.is_multiplayer = true
@@ -198,10 +209,6 @@ func get_player_name() -> String:
 	Global.log_normal("My username getted")
 	return my_info.name
 
-remote func set_player_name(new_name) -> void:
-	Global.log_normal("Username set by server")
-	my_info.server_name = new_name
-
 func begin_game(stage_id: String) -> void:
 	assert(get_tree().is_network_server())
 	
@@ -222,12 +229,16 @@ func begin_game(stage_id: String) -> void:
 	call_deferred("pre_start_game", spawn_points)
 
 func end_game() -> void:
+	UIMusic.stop()
 	if not has_node("/root/3DMenu"): # Game is not in the menus
 		# Go to main menu
 		Global.goto_scene(Global.MENU_SCENE_PATH)
+		UIMusic.play_menu_music()
 	# Clear repeat name list for future connections
 	repeat_names = {}
 	emit_signal("game_ended")
 	player_info.clear()
 	get_tree().set_network_peer(null) # End networking
+	is_server = false
 	Global.is_multiplayer = false
+	

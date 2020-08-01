@@ -4,21 +4,19 @@
 [ext_resource path="res://assets/sprites/logo.png" type="Texture" id=2]
 [ext_resource path="res://scenes/gui/GUIButton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/OptionsMenu.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/fonts/iosevka-bold.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/themes/Menu.theme" type="Theme" id=5]
 [ext_resource path="res://assets/main_menu/artwork_slime.png" type="Texture" id=6]
 [ext_resource path="res://scenes/menus/ConnectMenu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/fonts/m5x7.ttf" type="DynamicFontData" id=8]
 
 [sub_resource type="DynamicFont" id=1]
-size = 36
-font_data = ExtResource( 5 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 36
-font_data = ExtResource( 5 )
+size = 32
+font_data = ExtResource( 8 )
 
 [node name="Menus" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 5 )
 custom_constants/margin_right = 120
 custom_constants/margin_top = 80
 custom_constants/margin_left = 120
@@ -35,8 +33,9 @@ margin_right = 1800.0
 margin_bottom = 1000.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 288.0
+margin_right = 500.0
 margin_bottom = 920.0
+rect_min_size = Vector2( 500, 0 )
 
 [node name="Logo" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
 margin_right = 500.0
@@ -47,101 +46,125 @@ stretch_mode = 4
 
 [node name="MainMenu" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
 margin_top = 132.0
-margin_right = 288.0
-margin_bottom = 821.0
+margin_right = 500.0
+margin_bottom = 860.0
 size_flags_vertical = 3
 custom_constants/separation = 15
 alignment = 1
 
 [node name="Singleplayer" parent="HBoxContainer/VBoxContainer/MainMenu" instance=ExtResource( 3 )]
-margin_top = 252.0
-margin_right = 288.0
-margin_bottom = 287.0
+margin_right = 500.0
+margin_bottom = 32.0
 text = "Singleplayer"
 
 [node name="Multiplayer" parent="HBoxContainer/VBoxContainer/MainMenu" instance=ExtResource( 3 )]
-margin_top = 302.0
-margin_right = 288.0
-margin_bottom = 337.0
+margin_top = 47.0
+margin_right = 500.0
+margin_bottom = 79.0
 text = "Multiplayer"
 
 [node name="Options" parent="HBoxContainer/VBoxContainer/MainMenu" instance=ExtResource( 3 )]
-margin_top = 352.0
-margin_right = 288.0
-margin_bottom = 387.0
+margin_top = 94.0
+margin_right = 500.0
+margin_bottom = 126.0
 text = "Options"
 
+[node name="Spacer" type="Control" parent="HBoxContainer/VBoxContainer/MainMenu"]
+margin_top = 141.0
+margin_right = 500.0
+margin_bottom = 681.0
+size_flags_vertical = 3
+
 [node name="Exit" parent="HBoxContainer/VBoxContainer/MainMenu" instance=ExtResource( 3 )]
-margin_top = 402.0
-margin_right = 288.0
-margin_bottom = 437.0
+margin_top = 696.0
+margin_right = 500.0
+margin_bottom = 728.0
 text = "Exit"
 
 [node name="MultiplayerMenu" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
 visible = false
-margin_top = 347.0
-margin_right = 696.0
-margin_bottom = 527.0
+margin_top = 478.0
+margin_right = 500.0
+margin_bottom = 820.0
 size_flags_vertical = 3
 custom_constants/separation = 15
 alignment = 1
 
 [node name="Host" parent="HBoxContainer/VBoxContainer/MultiplayerMenu" instance=ExtResource( 3 )]
-margin_right = 696.0
-margin_bottom = 50.0
+margin_right = 500.0
+margin_bottom = 32.0
 text = "Host Server"
 
 [node name="Join" parent="HBoxContainer/VBoxContainer/MultiplayerMenu" instance=ExtResource( 3 )]
-margin_top = 65.0
-margin_right = 696.0
-margin_bottom = 115.0
+margin_top = 47.0
+margin_right = 500.0
+margin_bottom = 79.0
 text = "Join Server"
 
+[node name="Spacer" type="Control" parent="HBoxContainer/VBoxContainer/MultiplayerMenu"]
+margin_top = 94.0
+margin_right = 500.0
+margin_bottom = 295.0
+size_flags_vertical = 3
+
 [node name="Back" parent="HBoxContainer/VBoxContainer/MultiplayerMenu" instance=ExtResource( 3 )]
-margin_top = 130.0
-margin_right = 696.0
-margin_bottom = 180.0
+margin_top = 310.0
+margin_right = 500.0
+margin_bottom = 342.0
 text = "Back"
 
 [node name="OptionsMenu" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
 visible = false
-margin_top = 347.0
-margin_right = 696.0
-margin_bottom = 513.0
+margin_top = 132.0
+margin_right = 500.0
+margin_bottom = 821.0
 size_flags_vertical = 3
 custom_constants/separation = 15
 alignment = 1
 
 [node name="OptionsMenu" parent="HBoxContainer/VBoxContainer/OptionsMenu" instance=ExtResource( 4 )]
 margin_right = 500.0
+margin_bottom = 120.0
+
+[node name="Spacer" type="Control" parent="HBoxContainer/VBoxContainer/OptionsMenu"]
+margin_top = 135.0
+margin_right = 500.0
+margin_bottom = 642.0
+size_flags_vertical = 3
 
 [node name="Back" parent="HBoxContainer/VBoxContainer/OptionsMenu" instance=ExtResource( 3 )]
-margin_top = 90.0
-margin_right = 696.0
-margin_bottom = 140.0
-custom_fonts/font = SubResource( 1 )
+margin_top = 657.0
+margin_right = 500.0
+margin_bottom = 689.0
 text = "Back"
 
 [node name="Version" type="Label" parent="HBoxContainer/VBoxContainer"]
-margin_top = 825.0
-margin_right = 288.0
+margin_top = 864.0
+margin_right = 500.0
+margin_bottom = 890.0
+custom_fonts/font = SubResource( 1 )
+text = "v0.0.1"
+
+[node name="StudioName" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_top = 894.0
+margin_right = 500.0
 margin_bottom = 920.0
-custom_fonts/font = SubResource( 2 )
-text = "v0.0.1
-Bruh Productions"
+custom_fonts/font = SubResource( 1 )
+text = "Bruh Productions"
 
 [node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
 visible = false
-margin_left = 700.0
-margin_right = 1200.0
-margin_bottom = 608.0
+margin_left = 504.0
+margin_right = 1680.0
+margin_bottom = 920.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Artwork" type="TextureRect" parent="HBoxContainer/CenterContainer"]
-margin_top = 8.0
-margin_right = 500.0
-margin_bottom = 599.0
+margin_left = 338.0
+margin_top = 164.0
+margin_right = 838.0
+margin_bottom = 755.0
 texture = ExtResource( 6 )
 
 [node name="ConnectMenu" parent="." instance=ExtResource( 7 )]

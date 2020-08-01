@@ -1,7 +1,14 @@
+tool
 extends Spatial
 
+export(String) var name_tag setget set_name, get_name
+
 func _ready():
+	#set_name(name_tag)
 	pass
+
+func get_name():
+	return name_tag
 
 func set_name(name: String) -> void:
 	$Viewport/Label.text = name
