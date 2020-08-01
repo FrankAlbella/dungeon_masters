@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/menus/Menus.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/logo.png" type="Texture" id=2]
 [ext_resource path="res://scenes/gui/GUIButton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/OptionsMenu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/themes/Menu.theme" type="Theme" id=5]
-[ext_resource path="res://assets/main_menu/artwork_slime.png" type="Texture" id=6]
 [ext_resource path="res://scenes/menus/ConnectMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/fonts/m5x7.ttf" type="DynamicFontData" id=8]
 
@@ -153,19 +152,11 @@ custom_fonts/font = SubResource( 1 )
 text = "Bruh Productions"
 
 [node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
-visible = false
 margin_left = 504.0
 margin_right = 1680.0
 margin_bottom = 920.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="Artwork" type="TextureRect" parent="HBoxContainer/CenterContainer"]
-margin_left = 338.0
-margin_top = 164.0
-margin_right = 838.0
-margin_bottom = 755.0
-texture = ExtResource( 6 )
 
 [node name="ConnectMenu" parent="." instance=ExtResource( 7 )]
 anchor_left = 0.0

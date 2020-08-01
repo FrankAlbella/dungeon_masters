@@ -16,7 +16,6 @@ var pause_scene = null
 var stage_list = {
 	"Dungeon Test Stage": "res://scenes/stages/dungeon_stage.tscn",
 	"Generated Dungeon Stage": "res://scenes/stages/generated_dungeon_stage.tscn",
-	"3D Platformer": "res://scenes/stages/stage.scn",
 	"Test Stage": "res://scenes/stages/test_stage.tscn",
 	"Combat Stage": "res://scenes/stages/combat_stage.tscn"
 }
