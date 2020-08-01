@@ -25,7 +25,6 @@ omni_range = 8.0
 transform = Transform( 1.09248, 0, 0, 0, 1.09248, 0, 0, 0, 1, 0.0036758, 0.340181, 0 )
 billboard = 2
 frames = SubResource( 1 )
-frame = 1
 playing = true
 
 [node name="torch" parent="." instance=ExtResource( 27 )]
