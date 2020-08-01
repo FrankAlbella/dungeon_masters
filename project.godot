@@ -44,10 +44,11 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Sprite Dungeon"
+config/name="Dungeon Masters"
+config/description="A 3D dungeon crawler roguelike inspiried by Doom and TES II: Daggerfall. "
 run/main_scene="res://scenes/menus/3DMenu.tscn"
 config/icon="res://icon.png"
-config/windows_native_icon="res://icon.ico"
+config/windows_native_icon="res://assets/dm.ico"
 
 [autoload]
 
