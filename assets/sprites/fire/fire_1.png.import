@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/fire_sample3.png-631a2607e94f105d3006daacc5fb97d5.s3tc.stex"
-path.etc2="res://.import/fire_sample3.png-631a2607e94f105d3006daacc5fb97d5.etc2.stex"
+path.s3tc="res://.import/fire_1.png-e66b240fd94ddea2ce5e026f3143bc57.s3tc.stex"
+path.etc2="res://.import/fire_1.png-e66b240fd94ddea2ce5e026f3143bc57.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/sprites/fire/fire_sample3.png"
-dest_files=[ "res://.import/fire_sample3.png-631a2607e94f105d3006daacc5fb97d5.s3tc.stex", "res://.import/fire_sample3.png-631a2607e94f105d3006daacc5fb97d5.etc2.stex" ]
+source_file="res://assets/sprites/fire/fire_1.png"
+dest_files=[ "res://.import/fire_1.png-e66b240fd94ddea2ce5e026f3143bc57.s3tc.stex", "res://.import/fire_1.png-e66b240fd94ddea2ce5e026f3143bc57.etc2.stex" ]
 
 [params]
 
