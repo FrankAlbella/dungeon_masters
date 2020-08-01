@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/player/Nametag.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/m5x7.ttf" type="DynamicFontData" id=2]
@@ -7,19 +7,14 @@
 size = 36
 font_data = ExtResource( 2 )
 
-[sub_resource type="SpatialMaterial" id=2]
-flags_transparent = true
-flags_unshaded = true
-params_billboard_mode = 1
-
-[sub_resource type="ViewportTexture" id=3]
+[sub_resource type="ViewportTexture" id=2]
 viewport_path = NodePath("Viewport")
 
 [node name="Nametag" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 18, 44 )
+size = Vector2( 511, 44 )
 transparent_bg = true
 usage = 0
 
@@ -33,9 +28,9 @@ align = 1
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 layers = 2
-material_override = SubResource( 2 )
 cast_shadow = 0
 flip_v = true
+billboard = 1
 double_sided = false
-texture = SubResource( 3 )
+texture = SubResource( 2 )
 [connection signal="resized" from="Viewport/Label" to="." method="_on_Label_resized"]
