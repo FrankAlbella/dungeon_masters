@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/staircase.dae-f8273abf6402190bc069b6e327e9f31d.scn"
+path="res://.import/staircase.glb-142459dfe93cd5d29cca3634ea3adff5.scn"
 
 [deps]
 
-source_file="res://assets/models/staircase.dae"
-dest_files=[ "res://.import/staircase.dae-f8273abf6402190bc069b6e327e9f31d.scn" ]
+source_file="res://assets/models/staircase.glb"
+dest_files=[ "res://.import/staircase.glb-142459dfe93cd5d29cca3634ea3adff5.scn" ]
 
 [params]
 
