@@ -192,12 +192,13 @@ func process_sprite():
 		
 func process_input(delta):
 	dir = Vector3()
-	var is_shooting = false
 	
 	if controlled:
 		var cam_xform = $rotation_helper/camera_rot.get_global_transform()
 		
 		var input_movement_vector = Vector2()
+		
+		var is_shooting = false
 		
 		# Don't process input if game is paused
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -248,16 +249,20 @@ func process_input(delta):
 		if is_shooting:
 			rpc("fire_bullet", _shoot_pos.get_global_transform())
 		
-		rset("puppet_dir", dir)
-		rset("puppet_pos", translation)
-		rset("puppet_is_shooting", is_shooting)
+		if puppet_dir != dir:
+			puppet_dir = dir
+			rset("puppet_dir", puppet_dir)
+			
+		if puppet_pos != translation:
+			puppet_pos = translation
+			rset("puppet_pos", puppet_pos)
+			
 	else:
 		$rotation_helper.rotation = puppet_rotation
 		$rotation_helper/camera_rot.rotation.x = puppet_camera_rotation
 #		_player_skeleton.set_bone_pose(_player_head_id, puppet_head_rotation)
 		translation = puppet_pos
 		dir = puppet_dir
-		is_shooting = puppet_is_shooting
 		
 	if not controlled:
 		puppet_pos = translation # To avoid jitter

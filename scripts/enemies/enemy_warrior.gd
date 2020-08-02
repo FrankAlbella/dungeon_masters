@@ -25,40 +25,51 @@ const DEACCEL = 16
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	puppet_pos = translation
 	if target == null:
 		if not get_tree().is_network_server():
 			return
 		ai_acquire_target()
-	puppet_pos = translation
 	
-func _process(delta):	
+	
+func _process(delta):
 	if get_tree().is_network_server():
 		if target == null:
 			ai_acquire_target()
+		
+		var prev_dir = dir
 		ai_update_direction()
-	
+		
+		if dir != prev_dir:
+			rset("dir", dir)
+		
 		var origin = get_global_transform().origin
 		var target_origin = target.get_global_transform().origin
 		
 		#ai_acquire_path(origin, target_origin)
 		var dist_to_player = origin.distance_to(target_origin)
 		
-		in_range = true
 		if dist_to_player > min_distance:
 			in_range = false 
 		if dist_to_player > attack_range:
-				$shoot_cooldown.stop()
+			$shoot_cooldown.stop()
 		else:
+			in_range = true
 			if $shoot_cooldown.is_stopped():
 				$shoot_cooldown.start()
-				
+		
+		var prev_la_target = look_at_target
+		
 		look_at_target = target.translation
 		look_at_target.y = translation.y
 		
-		puppet_pos = translation
-		rset("in_range", in_range)
-		rset("puppet_pos", puppet_pos)
-		rset("look_at_target", look_at_target)
+		if prev_la_target != look_at_target:
+			rset("look_at_target", look_at_target)
+		
+		if puppet_pos != translation:
+			puppet_pos = translation
+			rset("in_range", in_range)
+			rset("puppet_pos", puppet_pos)
 		
 	translation = puppet_pos
 	if translation != look_at_target:
@@ -79,7 +90,6 @@ func ai_acquire_target() -> void:
 func ai_update_direction():
 	if target != null:
 		dir = (target.translation - self.translation).normalized()
-		rset("dir", dir)
 	
 func process_movement(delta):
 	dir.y = 0
