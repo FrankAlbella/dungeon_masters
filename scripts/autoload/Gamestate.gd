@@ -44,7 +44,7 @@ func get_spawn_points() -> Node:
 	return spawn_point_nodes
 	
 func get_player_count() -> int:
-	return player_info.size() + 1
+	return get_tree().get_nodes_in_group("player").size()
 
 func get_random_int(max_value, min_value) -> int:
 	return rng.randi()%max_value+min_value
