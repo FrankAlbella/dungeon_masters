@@ -1,21 +1,16 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
-[ext_resource path="res://assets/atlas/spritesheet-8way.png" type="Texture" id=2]
 [ext_resource path="res://scenes/player/Nametag.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/sounds/footsteps/sneaker-concrete.ogg" type="AudioStream" id=4]
 [ext_resource path="res://scenes/gui/GUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sounds/sound_shoot.ogg" type="AudioStream" id=6]
 [ext_resource path="res://scenes/menus/PauseMenu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/player/8way_sprite.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.25
 height = 1.25
-
-[sub_resource type="AtlasTexture" id=2]
-flags = 23
-atlas = ExtResource( 2 )
-region = Rect2( 4731, 55, 1238, 1960 )
 
 [node name="player" type="KinematicBody" groups=[
 "player",
@@ -31,6 +26,10 @@ shape = SubResource( 1 )
 
 [node name="rotation_helper" type="Spatial" parent="."]
 
+[node name="player_sprite" parent="rotation_helper" instance=ExtResource( 8 )]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 1, 0 )
+region_rect = Rect2( 4731, 55, 1238, 1960 )
+
 [node name="camera_rot" type="Spatial" parent="rotation_helper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49215, -0.0863764 )
 
@@ -39,11 +38,6 @@ fov = 90.0
 
 [node name="ShootPosition" type="Position3D" parent="rotation_helper/camera_rot/camera"]
 transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, 0, 0 )
-
-[node name="player_sprite" type="Sprite3D" parent="."]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 1, 0 )
-billboard = 2
-texture = SubResource( 2 )
 
 [node name="Nametag" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2438, 0 )

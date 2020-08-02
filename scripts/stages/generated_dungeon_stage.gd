@@ -40,7 +40,7 @@ func generate_dungeon() -> void:
 	for i in range(iterations):
 		is_starting_room = (i == 0)
 		var new_exits = []
-		for j in range(pending_nodes.size()):
+		for _j in range(pending_nodes.size()):
 			var current_node = pending_nodes.pop_front()
 			var available_exit_count = current_node.get_available_connection_points().size()
 			var available_prefabs
@@ -52,7 +52,7 @@ func generate_dungeon() -> void:
 			else:
 				available_prefabs = room_scenes
 			
-			for k in range(available_exit_count):
+			for _k in range(available_exit_count):
 				var next_node = available_prefabs[rng.randi()%available_prefabs.size()].instance()
 				next_node.set_name(next_node.get_name() + str(room_count))
 				room_count += 1

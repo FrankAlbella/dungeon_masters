@@ -73,7 +73,8 @@ func _ready():
 	if controlled:
 		$rotation_helper/camera_rot/camera.make_current()
 		$Nametag.hide()
-		$player_sprite.hide()
+		$rotation_helper/player_sprite.hide()
+		$rotation_helper/player_sprite.set_process(false)
 # warning-ignore:return_value_discarded
 		connect("score_changed", $GUI, "_on_score_changed")
 	else:
@@ -171,24 +172,6 @@ func _input(event):
 func _physics_process(delta):
 	process_input(delta)
 	process_movement(delta)
-	process_sprite()
-	
-func process_sprite():
-	if not controlled:
-		var player_node = get_viewport().get_camera()
-		var look_dir = $rotation_helper/camera_rot.global_transform.basis.z
-		var pos = $rotation_helper/camera_rot.global_transform.origin
-		var plyrPos = player_node.get_global_transform().origin
-		var a = Vector2(look_dir.x, look_dir.z) # Direction Sprite is looking
-		var dir2Plyr = Vector2(plyrPos.x - pos.x, plyrPos.z - pos.z)
-		var angle = a.angle_to(dir2Plyr)
-		angle = rad2deg(angle) - 22.5
-		if(angle < 0):
-			angle += 360
-			
-		var xcord = 1536 * int(angle/45)
-		$player_sprite.texture.region = Rect2(xcord, 0, 1536, 2048)
-		#Global.log_normal("angle:" + str(angle) +"\n\tx:" + str(int(angle/45)))
 		
 func process_input(delta):
 	dir = Vector3()
