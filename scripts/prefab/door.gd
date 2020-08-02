@@ -64,6 +64,7 @@ func open_door():
 	$door_staticbody/AudioStreamPlayer3D.play()
 	
 func close_door():
+	
 	$Tween.interpolate_property($door_staticbody, "translation", $door_staticbody.translation, start_pos, TIME, Tween.TRANS_LINEAR)
 	$Tween.start()
 	$door_staticbody/AudioStreamPlayer3D.play()

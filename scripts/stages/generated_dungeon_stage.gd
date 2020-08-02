@@ -35,6 +35,7 @@ func generate_dungeon() -> void:
 	var pending_nodes = [start_room]
 	
 	var is_starting_room = true
+	var room_count = 0
 	
 	for i in range(iterations):
 		is_starting_room = (i == 0)
@@ -53,6 +54,8 @@ func generate_dungeon() -> void:
 			
 			for k in range(available_exit_count):
 				var next_node = available_prefabs[rng.randi()%available_prefabs.size()].instance()
+				next_node.set_name(next_node.get_name() + str(room_count))
+				room_count += 1
 				$dungeon.add_child(next_node)
 				next_node.move_and_match_exits(current_node, is_starting_room)
 				new_exits.push_back(next_node)
