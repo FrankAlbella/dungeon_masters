@@ -18,7 +18,10 @@ height = 1.25
 ]]
 collision_layer = 3
 script = ExtResource( 1 )
-MANA_REGEN_RATE = 0.321
+MAX_HEALTH = 50.0
+MAX_MANA = 25.0
+HEALTH_REGEN_RATE = 0.1
+MANA_REGEN_RATE = 0.3
 
 [node name="Collision_Body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.875, 0 )

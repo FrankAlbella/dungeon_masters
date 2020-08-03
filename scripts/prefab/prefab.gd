@@ -119,9 +119,6 @@ func move_and_match_exits(prefab_node: prefab, is_starting_room: bool) -> void:
 		toggle_csg_collision($geometry/floor)
 		toggle_csg_collision($geometry/walls)
 		toggle_csg_collision($geometry/ceiling)
-		
-	if has_node("BakedLightmap"):
-		get_node("BakedLightmap").bake()
 
 func toggle_csg_collision(csg_node):
 	if not csg_node.has_method("set_use_collision"):

@@ -1,15 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/gui/GUI.gd" type="Script" id=1]
-[ext_resource path="res://assets/textures/heart.png" type="Texture" id=2]
-[ext_resource path="res://assets/fonts/m5x7.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://assets/textures/coin.png" type="Texture" id=4]
 [ext_resource path="res://scenes/gui/GUILabel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/textures/reticle_128.png" type="Texture" id=6]
-
-[sub_resource type="DynamicFont" id=1]
-size = 64
-font_data = ExtResource( 3 )
+[ext_resource path="res://scenes/gui/player_hud.tscn" type="PackedScene" id=7]
 
 [node name="GUI" type="MarginContainer"]
 anchor_right = 1.0
@@ -23,86 +17,30 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="player_hud" parent="." instance=ExtResource( 7 )]
+margin_right = 1870.0
+margin_bottom = 1030.0
+rect_scale = Vector2( 1, 1 )
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 1870.0
 margin_bottom = 1030.0
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 154.0
-margin_bottom = 79.0
-size_flags_vertical = 0
-
-[node name="Stats" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
-margin_right = 154.0
-margin_bottom = 51.0
-custom_constants/separation = 10
-
-[node name="Health" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Stats"]
-margin_right = 84.0
-margin_bottom = 51.0
-
-[node name="Icon" type="TextureRect" parent="HBoxContainer/VBoxContainer/Stats/Health"]
-margin_right = 32.0
-margin_bottom = 51.0
-texture = ExtResource( 2 )
-stretch_mode = 4
-
-[node name="Count" type="Label" parent="HBoxContainer/VBoxContainer/Stats/Health"]
-margin_left = 36.0
-margin_right = 84.0
-margin_bottom = 51.0
-custom_fonts/font = SubResource( 1 )
-text = "10"
-valign = 1
-
-[node name="Coins" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Stats"]
-margin_left = 94.0
-margin_right = 154.0
-margin_bottom = 51.0
-
-[node name="Icon" type="TextureRect" parent="HBoxContainer/VBoxContainer/Stats/Coins"]
-margin_right = 32.0
-margin_bottom = 51.0
-texture = ExtResource( 4 )
-stretch_mode = 4
-
-[node name="Count" type="Label" parent="HBoxContainer/VBoxContainer/Stats/Coins"]
-margin_left = 36.0
-margin_right = 60.0
-margin_bottom = 51.0
-custom_fonts/font = SubResource( 1 )
-text = "0"
-valign = 1
-
-[node name="Underline" type="ColorRect" parent="HBoxContainer/VBoxContainer"]
-margin_top = 55.0
-margin_right = 154.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 0, 10 )
-
-[node name="mana_bar" type="ColorRect" parent="HBoxContainer/VBoxContainer"]
-margin_top = 69.0
-margin_right = 154.0
-margin_bottom = 79.0
-rect_min_size = Vector2( 0, 10 )
-color = Color( 0.321569, 0.592157, 0.968627, 1 )
-
 [node name="Spacer" type="Control" parent="HBoxContainer"]
-margin_left = 158.0
-margin_right = 1012.0
+margin_right = 933.0
 margin_bottom = 1030.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 1016.0
+margin_left = 937.0
 margin_right = 1870.0
 margin_bottom = 1030.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 
 [node name="Log" parent="HBoxContainer/VBoxContainer2" instance=ExtResource( 5 )]
-margin_right = 854.0
+margin_right = 933.0
 margin_bottom = 13.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -113,7 +51,7 @@ max_lines_visible = 50
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer2"]
 visible = false
 margin_top = 17.0
-margin_right = 860.0
+margin_right = 933.0
 margin_bottom = 41.0
 align = 3
 __meta__ = {
@@ -122,11 +60,11 @@ __meta__ = {
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="reticle_cointainer" type="CenterContainer" parent="."]
 margin_right = 1870.0
 margin_bottom = 1030.0
 
-[node name="Reticle" type="TextureRect" parent="CenterContainer"]
+[node name="Reticle" type="TextureRect" parent="reticle_cointainer"]
 margin_left = 871.0
 margin_top = 451.0
 margin_right = 999.0

@@ -40,8 +40,8 @@ puppet var puppet_color := Color()
 puppet var puppet_is_shooting = false
 
 # PLAYER CONSTANTS
-export var MAX_HEALTH = 10
-export var MAX_MANA = 10
+export(float) var MAX_HEALTH = 10.0
+export(float) var MAX_MANA = 10.0
 
 export var HEALTH_REGEN_RATE = .2
 export var MANA_REGEN_RATE = .8
@@ -70,7 +70,12 @@ func _ready():
 	if is_network_master():
 		controlled = true
 	
+	set_health(MAX_HEALTH)
+	set_mana(MAX_MANA)
+	
 	if controlled:
+		$GUI.set_max_health(MAX_HEALTH)
+		$GUI.set_max_mana(MAX_MANA)
 		$rotation_helper/camera_rot/camera.make_current()
 		$Nametag.hide()
 		$rotation_helper/player_sprite.hide()
@@ -84,8 +89,6 @@ func _ready():
 remotesync func add_score(points: int) -> void:
 	score += points
 	rpc("_update_score", score)
-	#if controlled: 
-	#	$GUI.update_score(score)
 	
 remotesync func _update_score(new_score: int) -> void: 
 	score = new_score
@@ -116,6 +119,18 @@ remotesync func heal(hp: float) -> void:
 		health = MAX_HEALTH
 	$GUI.update_health(health)
 	
+remotesync func set_health(new_health: float) -> void:
+	health = new_health
+	
+	if health > new_health:
+		health = MAX_HEALTH
+		
+	if controlled:
+		$GUI.update_health(health)
+		
+	if health <= 0:
+		die()
+	
 remotesync func set_mana(new_mana: float) -> void:
 	mana = new_mana
 	
@@ -123,11 +138,8 @@ remotesync func set_mana(new_mana: float) -> void:
 			mana = MAX_MANA
 	
 	if controlled:
-		$GUI.update_mana_percent(float(mana)/MAX_MANA)
-	
-	if health <= 0:
-		die()
-	
+		$GUI.update_mana(mana)
+
 func set_spawn_id(id: int) -> void:
 	spawn_id = id
 	
@@ -297,9 +309,8 @@ func process_movement(delta):
 	
 func _on_timer_regen_timeout():
 	if health < MAX_HEALTH:
-		heal(HEALTH_REGEN_RATE)
+		rpc("set_health", health + HEALTH_REGEN_RATE)
 	if mana < MAX_MANA:
 		rpc("set_mana", mana + MANA_REGEN_RATE)
-		#set_mana(mana + MANA_REGEN_RATE)
 		
 		
