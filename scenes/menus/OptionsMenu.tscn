@@ -65,7 +65,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 31.0
 margin_right = -4.0
 margin_bottom = -4.0
 
@@ -89,7 +89,7 @@ text = "100%"
 margin_top = 17.0
 margin_right = 492.0
 margin_bottom = 33.0
-min_value = -60.0
+min_value = -30.0
 max_value = 0.0
 
 [node name="Music" type="HBoxContainer" parent="TabContainer/Audio"]
@@ -113,7 +113,7 @@ text = "100%"
 margin_top = 54.0
 margin_right = 492.0
 margin_bottom = 70.0
-min_value = -60.0
+min_value = -30.0
 max_value = 0.0
 
 [node name="Effects" type="HBoxContainer" parent="TabContainer/Audio"]
@@ -137,7 +137,7 @@ text = "100%"
 margin_top = 91.0
 margin_right = 492.0
 margin_bottom = 107.0
-min_value = -60.0
+min_value = -30.0
 max_value = 0.0
 
 [node name="Misc" type="VBoxContainer" parent="TabContainer"]
@@ -145,7 +145,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 31.0
 margin_right = -4.0
 margin_bottom = -4.0
 

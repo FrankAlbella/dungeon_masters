@@ -1,7 +1,7 @@
 extends VBoxContainer
 
 const MAX_VOLUME_DB = 0
-const MIN_VOLUME_DB = -60
+const MIN_VOLUME_DB = -40
 var VOLUME_RANGE_DB = abs(MAX_VOLUME_DB) + abs(MIN_VOLUME_DB)
 
 # VOLUME SLIDERS
@@ -15,6 +15,9 @@ onready var music_label = $TabContainer/Audio/Music/Percentage
 onready var effects_label = $TabContainer/Audio/Effects/Percentage
 
 func _ready():
+	master_slider.min_value = MIN_VOLUME_DB
+	music_slider.min_value = MIN_VOLUME_DB
+	effects_slider.min_value = MIN_VOLUME_DB
 	load_settings()
 	
 func load_settings():
@@ -36,7 +39,7 @@ func load_settings():
 	
 	
 func get_volume_percentage(value: float) -> String:
-	return str((value + 60) / 60 * 100).pad_decimals(0) + "%"
+	return str((value + VOLUME_RANGE_DB) / VOLUME_RANGE_DB * 100).pad_decimals(0) + "%"
 	
 func _on_Fullscreen_toggled(button_pressed):
 	OS.window_fullscreen = button_pressed
@@ -48,6 +51,11 @@ func _on_VSync_toggled(button_pressed):
 
 func _on_volume_changed(value, index):
 	AudioServer.set_bus_volume_db(index, value)
+	
+	if value == MIN_VOLUME_DB:
+		AudioServer.set_bus_mute(index, true)
+	elif AudioServer.is_bus_mute(index):
+		AudioServer.set_bus_mute(index, false)
 	
 	var percentage = get_volume_percentage(value)
 	match index:
