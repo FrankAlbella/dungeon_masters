@@ -38,10 +38,10 @@ margin_right = 25.5
 margin_bottom = 30.5
 
 [node name="life_bar" type="TextureProgress" parent="."]
-margin_left = 70.4251
-margin_top = 8.82941
-margin_right = 254.425
-margin_bottom = 48.8294
+margin_left = 70.0497
+margin_top = 9.53855
+margin_right = 294.05
+margin_bottom = 49.5385
 max_value = 1.0
 step = 0.0
 value = 1.0
@@ -52,10 +52,10 @@ __meta__ = {
 }
 
 [node name="mana_bar" type="TextureProgress" parent="."]
-margin_left = 70.1831
-margin_top = 40.8819
-margin_right = 196.183
-margin_bottom = 80.8819
+margin_left = 70.3802
+margin_top = 41.4412
+margin_right = 213.38
+margin_bottom = 81.4412
 max_value = 1.0
 step = 0.0
 value = 1.0
