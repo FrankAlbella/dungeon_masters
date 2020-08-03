@@ -52,7 +52,7 @@ func _set_locked(new_value):
 	locked = new_value
 	if open_area != null:
 		open_area.disabled = new_value
-		Global.log_normal("Door: Lock value set successfully")
+		#Global.log_normal("Door: Lock value set successfully")
 		if locked:
 			close_door()
 	else:
