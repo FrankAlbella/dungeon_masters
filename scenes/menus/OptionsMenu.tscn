@@ -164,7 +164,6 @@ text = "Show FPS"
 margin_left = 416.0
 margin_right = 492.0
 margin_bottom = 40.0
-[connection signal="visibility_changed" from="." to="." method="_on_OptionsMenu_visibility_changed"]
 [connection signal="toggled" from="TabContainer/Visual/Fullscreen/Toggle" to="." method="_on_Fullscreen_toggled"]
 [connection signal="toggled" from="TabContainer/Visual/Vsync/Toggle" to="." method="_on_VSync_toggled"]
 [connection signal="value_changed" from="TabContainer/Audio/MasterSlider" to="." method="_on_volume_changed" binds= [ 0 ]]

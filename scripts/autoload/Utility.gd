@@ -36,5 +36,30 @@ func load_config() -> void:
 	if result != OK:
 		Global.log_error("Config file load failed: " + str(result))
 		return
-		
+	
+	# Apply settings from config file
+	
+	# VISUAL
+	OS.window_fullscreen = get_config_value("visual", "fullscreen", true)
+	OS.vsync_enabled = get_config_value("visual", "vsync", true)
+	
+	# AUDIO
+	change_volume(float(Utility.get_config_value("audio", "master_volume", 0.0)), Global.MASTER_AUDIO_BUS_INDEX, false)
+	change_volume(float(Utility.get_config_value("audio", "music_volume", 0.0)), Global.MUSIC_AUDIO_BUS_INDEX, false)
+	change_volume(float(Utility.get_config_value("audio", "effects_volume", 0.0)), Global.EFFECT_AUDIO_BUS_INDEX, false)
+	
+	# MISC
+	$"/root/FPSCounter".visible = Utility.get_config_value("misc", "fps_counter", true)
+	
 	Global.log_normal("Config file load successful")
+	
+func change_volume(value, index, save_to_file = true):
+	AudioServer.set_bus_volume_db(index, value)
+	
+	if value == Global.MIN_VOLUME_DB:
+		AudioServer.set_bus_mute(index, true)
+	elif AudioServer.is_bus_mute(index):
+		AudioServer.set_bus_mute(index, false)
+		
+	if save_to_file:
+		set_config_value("audio", AudioServer.get_bus_name(index).to_lower() + "_volume", value)

@@ -13,6 +13,14 @@ const MAIN_SCENE_PATH = "res://scenes/stages/test_stage.tscn"
 const PAUSE_MENU_SCENE = preload("res://scenes/menus/PauseMenu.tscn")
 var pause_scene = null
 
+const MASTER_AUDIO_BUS_INDEX = 0
+const MUSIC_AUDIO_BUS_INDEX = 1
+const EFFECT_AUDIO_BUS_INDEX = 2
+
+const MAX_VOLUME_DB = 0
+const MIN_VOLUME_DB = -40
+var VOLUME_RANGE_DB = abs(MAX_VOLUME_DB) + abs(MIN_VOLUME_DB)
+
 var stage_list = {
 	"Dungeon Test Stage": "res://scenes/stages/dungeon_stage.tscn",
 	"Generated Dungeon Stage": "res://scenes/stages/generated_dungeon_stage.tscn",
