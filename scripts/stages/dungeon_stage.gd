@@ -12,7 +12,7 @@ func _ready():
 	UIMusic.play_explore_music()
 
 func generate_dungeon():
-	print("Generating dungeon")
+	Global.log_normal("Generating dungeon")
 
 	$dungeon/staircase.move_and_match_exits($dungeon/start_room, true)
 	$dungeon/staircase2.move_and_match_exits($dungeon/start_room, true)

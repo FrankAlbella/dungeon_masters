@@ -23,7 +23,7 @@ func _ready():
 	UIMusic.play_explore_music()
 
 func generate_dungeon() -> void:
-	print("Generating dungeon")
+	Global.log_normal("Generating dungeon")
 	
 	var rng = RandomNumberGenerator.new()
 	rng.seed = Gamestate.get_rng_seed()
