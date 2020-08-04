@@ -37,8 +37,6 @@ puppet var puppet_head_rotation := Transform()
 puppet var puppet_camera_rotation := 0.0
 puppet var puppet_color := Color()
 
-puppet var puppet_is_shooting = false
-
 # PLAYER CONSTANTS
 export(float) var MAX_HEALTH = 10.0
 export(float) var MAX_MANA = 10.0
@@ -52,6 +50,7 @@ var health = MAX_HEALTH
 var mana = MAX_MANA
 var spawn_id = 0
 var score = 0
+var is_hp_regen = false
 
 var controlled = false
 var fly_mode = false
@@ -80,11 +79,14 @@ func _ready():
 		$Nametag.hide()
 		$rotation_helper/player_sprite.hide()
 		$rotation_helper/player_sprite.set_process(false)
+		$timer_regen.start()
 # warning-ignore:return_value_discarded
 		connect("score_changed", $GUI, "_on_score_changed")
 	else:
 		$GUI.hide()
 	
+func set_is_hp_regen(hp_regen: bool) -> void:
+	is_hp_regen = hp_regen
 
 remotesync func add_score(points: int) -> void:
 	score += points
@@ -308,7 +310,7 @@ func process_movement(delta):
 	vel = move_and_slide(vel, Vector3.UP, true, 4, deg2rad(40))
 	
 func _on_timer_regen_timeout():
-	if health < MAX_HEALTH:
+	if health < MAX_HEALTH and is_hp_regen:
 		rpc("set_health", health + HEALTH_REGEN_RATE)
 	if mana < MAX_MANA:
 		rpc("set_mana", mana + MANA_REGEN_RATE)

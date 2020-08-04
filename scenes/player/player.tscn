@@ -67,5 +67,4 @@ area_mask = 2147483649
 
 [node name="timer_regen" type="Timer" parent="."]
 wait_time = 0.25
-autostart = true
 [connection signal="timeout" from="timer_regen" to="." method="_on_timer_regen_timeout"]

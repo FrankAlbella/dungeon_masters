@@ -63,6 +63,7 @@ func _on_enemy_died():
 		unlock_doors()
 		UIMusic.play_explore_music()
 		cleared = true
+		get_tree().call_group("player", "set_is_hp_regen", false)
 		emit_signal("room_cleared")
 		
 func _on_room_cleared():
@@ -139,6 +140,7 @@ func _on_inside_area_body_entered(body):
 		lock_doors()
 		UIMusic.play_combat_music()
 		cleared = true
+		get_tree().call_group("player", "set_is_hp_regen", true)
 		
 		if get_tree().is_network_server():
 			spawn_thread = Thread.new()
