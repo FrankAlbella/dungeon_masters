@@ -5,6 +5,7 @@ export var iterations = 6
 # TRANSITIONS
 onready var staircase_scene = preload("res://scenes/prefab/transition/staircase.tscn")
 onready var hallway_scene = preload("res://scenes/prefab/transition/hallway.tscn")
+onready var circle_hallway_scene = preload("res://scenes/prefab/transition/circle_hallway.tscn")
 
 # ROOMS
 onready var startroom_scene = preload("res://scenes/prefab/room/start_room.tscn")
@@ -13,7 +14,7 @@ onready var angleroom_scene = preload("res://scenes/prefab/room/angle_room.tscn"
 # END ROOMS
 onready var endroom_scene = preload("res://scenes/prefab/end_room/end_room.tscn")
 
-onready var transition_scenes = [staircase_scene, hallway_scene]
+onready var transition_scenes = [staircase_scene, hallway_scene, circle_hallway_scene]
 onready var room_scenes = [startroom_scene, angleroom_scene]
 
 
