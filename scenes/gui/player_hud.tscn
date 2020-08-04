@@ -9,7 +9,7 @@
 [ext_resource path="res://assets/sprites/player/portrait/generic_portrait.png" type="Texture" id=7]
 
 [node name="player_hud" type="Control"]
-margin_right = 254.0
+margin_right = 294.0
 margin_bottom = 83.0
 rect_min_size = Vector2( 254, 83 )
 rect_scale = Vector2( 2, 2 )
