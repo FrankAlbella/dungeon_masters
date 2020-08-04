@@ -109,16 +109,9 @@ func move_and_match_exits(prefab_node: prefab, is_starting_room: bool) -> void:
 		unlock_doors()
 	
 	# Workaround because CSG meshes do not update collision meshes when moved 
-	if get_filename() == "res://scenes/prefab/room/start_room.tscn":
-		toggle_csg_collision($geometry/Wall)
-		toggle_csg_collision($geometry/Wall2)
-		toggle_csg_collision($geometry/Wall3)
-		toggle_csg_collision($geometry/Wall4)
-		
-	elif get_filename() == "res://scenes/prefab/room/angle_room.tscn":
-		toggle_csg_collision($geometry/floor)
-		toggle_csg_collision($geometry/walls)
-		toggle_csg_collision($geometry/ceiling)
+	for node in $geometry.get_children():
+		if node is CSGShape:
+			toggle_csg_collision(node)
 
 func toggle_csg_collision(csg_node):
 	if not csg_node.has_method("set_use_collision"):
