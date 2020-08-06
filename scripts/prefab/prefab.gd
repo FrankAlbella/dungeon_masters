@@ -10,6 +10,7 @@ export(NodePath) var navigation
 
 var cleared = false
 var available_connection_points = []
+onready var geometry_node = $geometry
 
 onready var warrior_scene = preload("res://scenes/enemies/enemy_warrior.tscn")
 
@@ -24,7 +25,8 @@ func _ready():
 # warning-ignore:return_value_discarded
 		connect("tree_exiting", self, "_on_tree_exiting")
 	
-	$geometry.hide()
+	geometry_node.hide()
+	#remove_child(geometry_node)
 	
 	for i in $connection_points.get_children():
 		available_connection_points.push_back(i)
@@ -35,7 +37,7 @@ func get_navigation() -> Node:
 
 func lock_doors():
 	for n in $connection_points.get_children():
-		n.get_node("door").locked = true
+		n.set_door_locked(true)
 	
 func unlock_doors():
 	for n in $connection_points.get_children():
@@ -113,26 +115,28 @@ func move_and_match_exits(prefab_node: prefab, is_starting_room: bool) -> void:
 	for node in $geometry.get_children():
 		if node is CSGShape:
 			toggle_csg_collision(node)
+	#remove_child(geometry_node)
 
 func toggle_csg_collision(csg_node):
 	if not csg_node.has_method("set_use_collision"):
 		Global.log_warning("toggle_csg_collision: node does not have set_use_collision")
 		return
 	
-	csg_node.use_collision = false
-	csg_node.use_collision = true
-
+	csg_node.use_collision = !csg_node.use_collision
+	csg_node.use_collision = !csg_node.use_collision
+	
 
 func _on_visible_area_body_entered(body):
 	if body.is_in_group("player"):
-		if has_node("geometry"):
-			get_node("geometry").show()
-
+		if geometry_node:
+			geometry_node.show()
+			#add_child(geometry_node)
 
 func _on_visible_area_body_exited(body):
 	if body.is_in_group("player"):
-		if has_node("geometry") and $visible_area.get_overlapping_bodies().size() - 1 == 0:
-			get_node("geometry").hide()
+		if geometry_node and $visible_area.get_overlapping_bodies().size() - 1 == 0:
+			geometry_node.hide()
+			#remove_child(geometry_node)
 
 func _on_inside_area_body_entered(body):
 	assert(body.is_in_group("players"))
