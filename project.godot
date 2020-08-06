@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/prefab/prefab.gd"
 }, {
-"base": "RigidBody",
+"base": "KinematicBody",
 "class": "projectile",
 "language": "GDScript",
 "path": "res://scripts/props/magic_missile.gd"

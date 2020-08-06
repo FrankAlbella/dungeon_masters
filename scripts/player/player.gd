@@ -157,7 +157,7 @@ remotesync func fire_bullet(shoot_transform: Transform) -> void:
 	bullet.source = self
 	bullet.set_transform(shoot_transform.orthonormalized())
 	get_parent().add_child(bullet)
-	bullet.set_linear_velocity(shoot_transform.basis[2].normalized() * bullet.speed)
+	bullet.fire(shoot_transform.basis[2].normalized())
 	bullet.add_collision_exception_with(self) # Add it to bullet
 	#if not $sound_shoot.is_playing():
 	$sound_shoot.play()
