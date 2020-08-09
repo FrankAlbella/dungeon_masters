@@ -88,7 +88,7 @@ func _ready():
 
 func _on_shoot(shoot_transform):
 	rpc("fire_bullet", shoot_transform)
-7
+
 func set_dir(new_dir):
 	dir = new_dir
 
