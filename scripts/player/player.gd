@@ -117,8 +117,11 @@ remotesync func take_damage(dmg: float, _source: Node) -> void:
 		die()
 	
 remotesync func die():
-	Global.log_normal(player_name + " has died! ahhhhhh", true)
-	heal(MAX_HEALTH)
+	if $state_machine.get_state_name() == "dead":
+		return 
+	
+	Global.log_normal(player_name + " has died!", true)
+	$state_machine._change_state("dead")
 	
 	emit_signal("died")
 	

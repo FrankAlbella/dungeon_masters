@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
 [ext_resource path="res://scripts/states/state_machine.gd" type="Script" id=2]
@@ -9,8 +9,9 @@
 [ext_resource path="res://scenes/menus/PauseMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/player/8way_sprite.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scripts/states/player/alive.gd" type="Script" id=9]
-[ext_resource path="res://scripts/states/state.gd" type="Script" id=10]
+[ext_resource path="res://scripts/states/player/dead.gd" type="Script" id=10]
 [ext_resource path="res://scripts/states/player/no_clip.gd" type="Script" id=11]
+[ext_resource path="res://assets/sprites/player/player_wisp.png" type="Texture" id=12]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.25
@@ -36,7 +37,6 @@ player_path = NodePath("../..")
 
 [node name="dead" type="Node" parent="state_machine"]
 script = ExtResource( 10 )
-player_path = NodePath("../..")
 
 [node name="no_clip" type="Node" parent="state_machine"]
 script = ExtResource( 11 )
@@ -53,6 +53,11 @@ transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0.913718, 0 )
 region_rect = Rect2( 291, 3, 77, 121 )
 frame_width = 94
 frame_height = 128
+
+[node name="player_wisp" type="Sprite3D" parent="rotation_helper"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0 )
+visible = false
+texture = ExtResource( 12 )
 
 [node name="camera_rot" type="Spatial" parent="rotation_helper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.492, 0 )

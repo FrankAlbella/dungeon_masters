@@ -30,7 +30,7 @@ func _ready():
 		if not get_tree().is_network_server():
 			return
 		ai_acquire_target()
-	
+		target.connect("died", self, "_on_target_died")
 	
 func _process(delta):
 	if get_tree().is_network_server():
@@ -85,7 +85,9 @@ func ai_acquire_target() -> void:
 	var players = get_tree().get_nodes_in_group("player_alive")
 	if players.size() != 0: 
 		target = players[Gamestate.get_random_int(players.size(), 0)]
-		#rpc("set_target", target.get_path())
+	else:
+		set_process(false)
+		target = null
 
 func ai_update_direction():
 	if target != null:
@@ -158,6 +160,8 @@ remotesync func die():
 remotesync func heal(hp: int) -> void:
 	health += hp
 	
+func _on_target_died():
+	ai_acquire_target()
 
 func _on_shoot_cooldown_timeout():
 	if target != null and get_tree().is_network_server():

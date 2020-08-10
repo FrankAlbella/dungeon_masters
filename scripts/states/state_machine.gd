@@ -38,6 +38,9 @@ func _on_animation_finished(anim_name):
 func _update_state(state_name):
 	rpc("_change_state", state_name)
 	
+func get_state_name():
+	return current_state.name
+	
 remotesync func _change_state(state_name):
 	if current_state:
 		current_state.exit()
