@@ -1,12 +1,16 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
+[ext_resource path="res://scripts/states/state_machine.gd" type="Script" id=2]
 [ext_resource path="res://scenes/player/Nametag.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/sounds/footsteps/sneaker-concrete.ogg" type="AudioStream" id=4]
 [ext_resource path="res://scenes/gui/GUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sounds/sound_shoot.ogg" type="AudioStream" id=6]
 [ext_resource path="res://scenes/menus/PauseMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/player/8way_sprite.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scripts/states/player/alive.gd" type="Script" id=9]
+[ext_resource path="res://scripts/states/state.gd" type="Script" id=10]
+[ext_resource path="res://scripts/states/player/no_clip.gd" type="Script" id=11]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.25
@@ -23,6 +27,21 @@ MAX_MANA = 25.0
 HEALTH_REGEN_RATE = 0.1
 MANA_REGEN_RATE = 0.3
 
+[node name="state_machine" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="alive" type="Node" parent="state_machine"]
+script = ExtResource( 9 )
+player_path = NodePath("../..")
+
+[node name="dead" type="Node" parent="state_machine"]
+script = ExtResource( 10 )
+player_path = NodePath("../..")
+
+[node name="no_clip" type="Node" parent="state_machine"]
+script = ExtResource( 11 )
+player_path = NodePath("../..")
+
 [node name="Collision_Body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.875, 0 )
 shape = SubResource( 1 )
@@ -36,7 +55,7 @@ frame_width = 94
 frame_height = 128
 
 [node name="camera_rot" type="Spatial" parent="rotation_helper"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49215, -0.0863764 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.492, 0 )
 
 [node name="camera" type="Camera" parent="rotation_helper/camera_rot"]
 fov = 90.0

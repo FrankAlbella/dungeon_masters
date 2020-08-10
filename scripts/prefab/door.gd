@@ -7,8 +7,8 @@ var bodies_inside = 0
 
 const TIME = .25
 
-export(bool) var locked setget _set_locked, _get_locked
-export(bool) var open setget _set_opened, _get_opened
+export(bool) var _locked = true
+export(bool) var _open = false
 
 onready var open_area = $Area/CollisionShape
 
@@ -19,7 +19,8 @@ func _ready():
 	end_pos = start_pos
 	end_pos.y += 2
 	
-	_set_locked(locked)
+	set_locked(_locked)
+	set_opened(_open)
 
 func _on_Area_body_entered(body):
 	if body.is_in_group("player"):
@@ -35,25 +36,25 @@ func _on_Area_body_exited(body):
 			close_door()
 		
 
-func _get_opened():
-	return open
+func get_opened():
+	return _open
 	
-func _set_opened(new_value):
-	open = new_value
-	if open:
+func set_opened(new_value):
+	_open = new_value
+	if _open:
 		open_door()
 	else:
 		close_door()
 
-func _get_locked():
-	return locked
+func get_locked():
+	return _locked
 	
-func _set_locked(new_value):
-	locked = new_value
+func set_locked(new_value):
+	_locked = new_value
 	if open_area != null:
 		open_area.disabled = new_value
 		#Global.log_normal("Door: Lock value set successfully")
-		if locked:
+		if _locked:
 			close_door()
 	else:
 		Global.log_warning("Door: open_area is null")
@@ -64,7 +65,6 @@ func open_door():
 	$door_staticbody/AudioStreamPlayer3D.play()
 	
 func close_door():
-	
 	$Tween.interpolate_property($door_staticbody, "translation", $door_staticbody.translation, start_pos, TIME, Tween.TRANS_LINEAR)
 	$Tween.start()
 	$door_staticbody/AudioStreamPlayer3D.play()

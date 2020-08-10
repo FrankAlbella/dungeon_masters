@@ -29,17 +29,29 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/prefab/prefab.gd"
 }, {
-"base": "RigidBody",
+"base": "KinematicBody",
 "class": "projectile",
 "language": "GDScript",
 "path": "res://scripts/props/magic_missile.gd"
+}, {
+"base": "Node",
+"class": "state",
+"language": "GDScript",
+"path": "res://scripts/states/state.gd"
+}, {
+"base": "Node",
+"class": "state_machine",
+"language": "GDScript",
+"path": "res://scripts/states/state_machine.gd"
 } ]
 _global_script_class_icons={
 "MainMenu": "",
 "connection_node": "",
 "player": "",
 "prefab": "",
-"projectile": ""
+"projectile": "",
+"state": "",
+"state_machine": ""
 }
 
 [application]

@@ -6,14 +6,9 @@
 [sub_resource type="SphereShape" id=1]
 radius = 0.081621
 
-[node name="magic_missile" type="RigidBody"]
+[node name="magic_missile" type="KinematicBody"]
 collision_layer = 0
 collision_mask = 2147483655
-mass = 0.00102041
-gravity_scale = 0.0
-continuous_cd = true
-contacts_reported = 1
-contact_monitor = true
 script = ExtResource( 2 )
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
@@ -33,5 +28,4 @@ omni_range = 3.0
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
-[connection signal="body_entered" from="." to="." method="_on_magic_missile_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
