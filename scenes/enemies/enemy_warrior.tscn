@@ -19,9 +19,11 @@ script = ExtResource( 2 )
 enemy_name = "Warrior"
 
 [node name="8 Way Sprite" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.102084, 0, 0, 0, 0.102084, 1.21694e-08, 0, -1.21694e-08, 0.102084, 0, 1.00417, -1.1724e-13 )
+transform = Transform( 1.5, 0, 0, 0, 1.5, 1.1921e-07, 0, -1.78815e-07, 1, 0, 1.00417, -1.1724e-13 )
 modulate = Color( 0.988235, 0.00392157, 0.00392157, 1 )
 region_rect = Rect2( 4731, 55, 1238, 1960 )
+frame_width = 94
+frame_height = 128
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1.02084, 0, 0, 0, -1.66316e-07, 1.02084, 0, -1.02084, -1.66316e-07, 0, 1, 0 )

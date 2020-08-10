@@ -30,8 +30,10 @@ shape = SubResource( 1 )
 [node name="rotation_helper" type="Spatial" parent="."]
 
 [node name="player_sprite" parent="rotation_helper" instance=ExtResource( 8 )]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 1, 0 )
-region_rect = Rect2( 4731, 55, 1238, 1960 )
+transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0.913718, 0 )
+region_rect = Rect2( 291, 3, 77, 121 )
+frame_width = 94
+frame_height = 128
 
 [node name="camera_rot" type="Spatial" parent="rotation_helper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49215, -0.0863764 )
