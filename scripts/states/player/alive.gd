@@ -24,6 +24,12 @@ var vel = Vector3()
 func enter():
 	_shoot_pos = owner.get_node("rotation_helper/camera_rot/camera/ShootPosition")
 	
+	if not owner.is_in_group("player_alive"):
+		owner.add_to_group("player_alive")
+		
+	if owner.is_in_group("player_dead"):
+		owner.remove_from_group("player_dead")
+	
 func exit():
 	dir = Vector3()
 	vel = Vector3()
@@ -65,11 +71,19 @@ func update(delta):
 			
 			if Input.is_action_pressed("sprint"):
 				is_sprinting = true
-				owner.get_node("Tween").interpolate_property(owner.get_node("rotation_helper/camera_rot/camera"), "fov", owner.get_node("rotation_helper/camera_rot/camera").fov, SPRINT_FOV, 0.1)
+				owner.get_node("Tween").interpolate_property(owner.get_node("rotation_helper/camera_rot/camera"),
+					"fov",
+					owner.get_node("rotation_helper/camera_rot/camera").fov,
+					SPRINT_FOV,
+					0.1)
 				owner.get_node("sound_footstep").pitch_scale = 0.5
 			else: 
 				is_sprinting = false
-				owner.get_node("Tween").interpolate_property(owner.get_node("rotation_helper/camera_rot/camera"), "fov", owner.get_node("rotation_helper/camera_rot/camera").fov, FOV , 0.1)
+				owner.get_node("Tween").interpolate_property(owner.get_node("rotation_helper/camera_rot/camera"),
+					"fov",
+					owner.get_node("rotation_helper/camera_rot/camera").fov,
+					FOV,
+					0.1)
 				owner.get_node("sound_footstep").pitch_scale = 0.4
 				
 			if not owner.get_node("Tween").is_active():

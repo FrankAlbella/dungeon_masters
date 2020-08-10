@@ -59,7 +59,7 @@ billboard = 2
 texture = ExtResource( 12 )
 
 [node name="camera_rot" type="Spatial" parent="rotation_helper"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.492, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 
 [node name="camera" type="Camera" parent="rotation_helper/camera_rot"]
 fov = 90.0

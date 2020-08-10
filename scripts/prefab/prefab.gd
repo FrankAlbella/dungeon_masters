@@ -71,6 +71,8 @@ func _on_enemy_died():
 func _on_room_cleared():
 	unlock_doors()
 	
+	get_tree().call_group("player_dead", "revive", 25)
+	
 	if not spawn_enemies:
 		emit_signal("room_cleared")
 
@@ -124,7 +126,6 @@ func toggle_csg_collision(csg_node):
 	
 	csg_node.use_collision = !csg_node.use_collision
 	csg_node.use_collision = !csg_node.use_collision
-	
 
 func _on_visible_area_body_entered(body):
 	if body.is_in_group("player"):
