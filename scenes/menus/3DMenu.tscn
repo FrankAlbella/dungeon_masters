@@ -29,4 +29,3 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.556, 0, 0 )
 "player",
 ] instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.546166, 0, 0.804253 )
-rotate = true
