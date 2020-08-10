@@ -1,25 +1,18 @@
 extends "../state.gd"
 
-
-#export(NodePath) var player_path
-#var player_node 
-
-#signal finished(next_state_name)
+const MAX_SPEED = 6
 
 var dir = Vector3()
 var vel = Vector3()
 # Initialize the state. E.g. change the animation
 func enter():
-	if player_path != null:
-		player_node = get_node(player_path)
-		player_node.set_collision_mask_bit(0, 0)
-		player_node.set_collision_layer_bit(0, 0)
+	owner.set_collision_mask_bit(0, 0)
+	owner.set_collision_layer_bit(0, 0)
 
 # Clean up the state. Reinitialize values like a timer
 func exit():
-	if player_node: 
-		player_node.set_collision_mask_bit(0, 1)
-		player_node.set_collision_layer_bit(0, 1)
+	owner.set_collision_mask_bit(0, 1)
+	owner.set_collision_layer_bit(0, 1)
 
 func handle_input(event):
 	if not owner.controlled:
@@ -31,7 +24,7 @@ func handle_input(event):
 
 func update(delta):
 	if owner.controlled:
-		var cam_xform = player_node.get_node("rotation_helper/camera_rot").get_global_transform()
+		var cam_xform = owner.get_node("rotation_helper/camera_rot").get_global_transform()
 		
 		var input_movement_vector = Vector3()
 		
@@ -54,14 +47,12 @@ func update(delta):
 		dir.y = input_movement_vector.y 
 		
 		get_parent().set_look_direction(dir)
-		#player_node.translate(Vector3(0,input_movement_vector.y*delta, 0) )
 	process_movement(delta)
 
 func process_movement(delta):
 	dir = dir.normalized()
-	dir *= player_node.MAX_SPEED * 100
-	dir = player_node.move_and_slide(dir * delta, Vector3.UP, true, 4, deg2rad(40))
-	#player_node.translate(dir)
+	dir *= MAX_SPEED * 100
+	dir = owner.move_and_slide(dir * delta, Vector3.UP, true, 4, deg2rad(40))
 
 func _on_animation_finished(anim_name):
 	Global.log_warning(name+" state: _on_animation_finished not implemented")

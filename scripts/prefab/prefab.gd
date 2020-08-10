@@ -139,7 +139,7 @@ func _on_visible_area_body_exited(body):
 			#remove_child(geometry_node)
 
 func _on_inside_area_body_entered(body):
-	assert(body.is_in_group("players"))
+	assert(body.is_in_group("player"))
 	if spawn_enemies and not cleared and $inside_area.get_overlapping_bodies().size() == Gamestate.get_player_count():
 		lock_doors()
 		UIMusic.play_combat_music()

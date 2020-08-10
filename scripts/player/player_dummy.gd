@@ -1,4 +1,3 @@
-tool
 extends Spatial
 
 export(bool) var rotate = true

@@ -10,8 +10,6 @@ var states_stack = []
 var current_state = null
 var look_direction = Vector3() setget set_look_direction
 
-var controlled
-
 onready var states_map = {
 	"alive": $alive,
 	"dead": $dead,

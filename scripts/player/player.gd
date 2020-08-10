@@ -5,18 +5,6 @@ class_name player
 signal died
 signal score_changed
 
-# MOVEMENT CONSTANTS
-const GRAVITY = -26
-const MAX_SPEED = 6
-const JUMP_SPEED = 8
-const ACCEL = 10
-const DEACCEL = 16
-const DEACCEL_AIR = 1
-
-const MAX_SPRINT_SPEED = 8
-const SPRINT_ACCEL = 7
-var is_sprinting = false
-
 var dir = Vector3()
 var vel = Vector3()
 
@@ -35,7 +23,6 @@ puppet var puppet_dir := Vector3()
 puppet var puppet_rotation := Vector3()
 puppet var puppet_head_rotation := Transform()
 puppet var puppet_camera_rotation := 0.0
-puppet var puppet_color := Color()
 
 # PLAYER CONSTANTS
 export(float) var MAX_HEALTH = 10.0
@@ -55,18 +42,14 @@ var is_hp_regen = false
 var controlled = false
 var fly_mode = false
 
-#onready var _anim = $rotation_helper/player/AnimationPlayer
-
 export var projectile_scene = preload("res://scenes/props/magic_missile.tscn")
 
 func _init():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _ready():
-	add_to_group("players")
 	if is_network_master():
 		controlled = true
-		$state_machine.controlled = true
 	set_health(MAX_HEALTH)
 	set_mana(MAX_MANA)
 	

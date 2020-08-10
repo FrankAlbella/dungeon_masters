@@ -33,14 +33,12 @@ script = ExtResource( 2 )
 
 [node name="alive" type="Node" parent="state_machine"]
 script = ExtResource( 9 )
-player_path = NodePath("../..")
 
 [node name="dead" type="Node" parent="state_machine"]
 script = ExtResource( 10 )
 
 [node name="no_clip" type="Node" parent="state_machine"]
 script = ExtResource( 11 )
-player_path = NodePath("../..")
 
 [node name="Collision_Body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.875, 0 )
@@ -57,6 +55,7 @@ frame_height = 128
 [node name="player_wisp" type="Sprite3D" parent="rotation_helper"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0 )
 visible = false
+billboard = 2
 texture = ExtResource( 12 )
 
 [node name="camera_rot" type="Spatial" parent="rotation_helper"]

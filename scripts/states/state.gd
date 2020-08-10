@@ -2,9 +2,6 @@ extends Node
 
 class_name state
 
-export(NodePath) var player_path
-var player_node 
-
 signal finished(next_state_name)
 
 # Initialize the state. E.g. change the animation
