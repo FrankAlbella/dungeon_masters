@@ -30,6 +30,10 @@ func enter():
 	if owner.is_in_group("player_dead"):
 		owner.remove_from_group("player_dead")
 	
+	if not owner.controlled:
+		owner.get_node("rotation_helper/player_sprite").show()
+	owner.get_node("rotation_helper/player_wisp").hide()
+	
 func exit():
 	dir = Vector3()
 	vel = Vector3()

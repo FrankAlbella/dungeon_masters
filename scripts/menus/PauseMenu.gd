@@ -53,7 +53,6 @@ func _on_Back_pressed():
 	$CenterContainer/VBoxContainer/Options.hide()
 	$CenterContainer/VBoxContainer/Pause.show()
 
-
 func _on_PauseMenu_visibility_changed():
 	$CenterContainer/VBoxContainer/Options.hide()
 	$CenterContainer/VBoxContainer/Pause.show()

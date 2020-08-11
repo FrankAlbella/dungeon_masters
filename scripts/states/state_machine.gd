@@ -13,7 +13,8 @@ var look_direction = Vector3() setget set_look_direction
 onready var states_map = {
 	"alive": $alive,
 	"dead": $dead,
-	"no_clip": $no_clip
+	"no_clip": $no_clip,
+	"game_over": $game_over
 }
 
 func _ready():

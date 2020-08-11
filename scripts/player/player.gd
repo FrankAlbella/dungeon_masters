@@ -2,6 +2,7 @@ extends KinematicBody
 
 class_name player
 
+# warning-ignore:unused_signal
 signal died
 signal score_changed
 
@@ -36,11 +37,15 @@ var player_name = ""
 var health = MAX_HEALTH
 var mana = MAX_MANA
 var spawn_id = 0
-var score = 0
 var is_hp_regen = false
 
 var controlled = false
 var fly_mode = false
+
+# PLAYER STATS
+var stat_kills = 0
+var stat_deaths = 0
+var stat_revives = 0
 
 export var projectile_scene = preload("res://scenes/props/magic_missile.tscn")
 
@@ -53,7 +58,9 @@ func _ready():
 	set_health(MAX_HEALTH)
 	set_mana(MAX_MANA)
 	
+# warning-ignore:return_value_discarded
 	$state_machine.connect("shoot", self, "_on_shoot")
+# warning-ignore:return_value_discarded
 	$state_machine.connect("direction_changed", self, "set_dir")
 	
 	if controlled:
@@ -79,11 +86,11 @@ func set_is_hp_regen(hp_regen: bool) -> void:
 	is_hp_regen = hp_regen
 
 remotesync func add_score(points: int) -> void:
-	score += points
-	rpc("_update_score", score)
+	stat_kills += points
+	rpc("_update_score", stat_kills)
 	
 remotesync func _update_score(new_score: int) -> void: 
-	score = new_score
+	stat_kills = new_score
 	emit_signal("score_changed", new_score)
 
 remotesync func set_player_name(new_player_name: String) -> void:
@@ -100,7 +107,7 @@ remotesync func take_damage(dmg: float, _source: Node) -> void:
 		die()
 	
 remotesync func die() -> void:
-	if $state_machine.get_state_name() == "dead":
+	if $state_machine.get_state_name() == "dead" or $state_machine.get_state_name() == "game_over":
 		return 
 	
 	Global.log_normal(player_name + " has died!", true)
@@ -110,6 +117,7 @@ remotesync func revive(hp: float) -> void:
 	if $state_machine.get_state_name() != "dead":
 		return 
 	
+	Global.log_normal(player_name + " has revived!", true)
 	rpc("set_health", hp)
 	$state_machine.current_state.emit_signal("finished", "alive")
 	
@@ -175,10 +183,10 @@ func _input(event):
 		puppet_rotation = $rotation_helper.rotation
 		rset("puppet_rotation", puppet_rotation)
 	
-func _physics_process(delta):
-	process_input(delta)
+func _physics_process(_delta):
+	update_puppets()
 	
-func process_input(delta):
+func update_puppets():
 	if controlled:
 		if puppet_dir != dir:
 			puppet_dir = dir

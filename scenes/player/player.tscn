@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
 [ext_resource path="res://scripts/states/state_machine.gd" type="Script" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://scripts/states/player/dead.gd" type="Script" id=10]
 [ext_resource path="res://scripts/states/player/no_clip.gd" type="Script" id=11]
 [ext_resource path="res://assets/sprites/player/player_wisp.png" type="Texture" id=12]
+[ext_resource path="res://scripts/states/player/game_over.gd" type="Script" id=13]
+[ext_resource path="res://scenes/menus/stats/stat_menu.tscn" type="PackedScene" id=14]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.25
@@ -39,6 +41,9 @@ script = ExtResource( 10 )
 
 [node name="no_clip" type="Node" parent="state_machine"]
 script = ExtResource( 11 )
+
+[node name="game_over" type="Node" parent="state_machine"]
+script = ExtResource( 13 )
 
 [node name="Collision_Body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.875, 0 )
@@ -76,6 +81,8 @@ name_tag = ""
 [node name="GUI" parent="." instance=ExtResource( 5 )]
 
 [node name="PauseMenu" parent="." instance=ExtResource( 7 )]
+
+[node name="stat_menu" parent="." instance=ExtResource( 14 )]
 visible = false
 
 [node name="sound_shoot" type="AudioStreamPlayer3D" parent="."]
