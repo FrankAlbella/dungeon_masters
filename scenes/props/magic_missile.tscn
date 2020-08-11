@@ -24,8 +24,3 @@ shape = SubResource( 1 )
 light_color = Color( 0.509804, 0.870588, 0.980392, 1 )
 light_energy = 2.0
 omni_range = 3.0
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
