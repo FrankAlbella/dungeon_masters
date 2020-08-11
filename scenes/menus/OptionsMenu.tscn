@@ -32,9 +32,9 @@ margin_right = 492.0
 margin_bottom = 40.0
 
 [node name="GUILabel" parent="TabContainer/Visual/Fullscreen" instance=ExtResource( 2 )]
-margin_top = 13.0
+margin_top = 7.0
 margin_right = 412.0
-margin_bottom = 26.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
 text = "Fullscreen"
 
@@ -49,9 +49,9 @@ margin_right = 492.0
 margin_bottom = 84.0
 
 [node name="GUILabel" parent="TabContainer/Visual/Vsync" instance=ExtResource( 2 )]
-margin_top = 13.0
+margin_top = 7.0
 margin_right = 412.0
-margin_bottom = 26.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
 text = "VSync"
 
