@@ -8,6 +8,8 @@ func enter():
 	owner.get_node("rotation_helper/player_sprite").hide()
 	owner.get_node("rotation_helper/player_wisp").show()
 	
+	owner.set_collision_layer_bit(2, 0)
+	
 	owner.get_node("Tween").interpolate_property(owner.get_node("rotation_helper/camera_rot/camera"), 
 		"translation", 
 		owner.get_node("rotation_helper/camera_rot/camera").translation, 
@@ -34,6 +36,7 @@ func exit():
 		CAM_ANIM_TIME)
 	owner.get_node("Tween").start()
 	
+	owner.set_collision_layer_bit(2, 1)
 	owner.get_node("timer_regen").start()
 	owner.add_to_group("player_alive")
 
@@ -41,7 +44,4 @@ func handle_input(event):
 	return
 
 func update(delta):
-	return
-
-func _on_animation_finished(anim_name):
 	return
