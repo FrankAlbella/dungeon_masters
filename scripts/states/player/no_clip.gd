@@ -53,7 +53,3 @@ func process_movement(delta):
 	dir = dir.normalized()
 	dir *= MAX_SPEED * 100
 	dir = owner.move_and_slide(dir * delta, Vector3.UP, true, 4, deg2rad(40))
-
-func _on_animation_finished(anim_name):
-	Global.log_warning(name+" state: _on_animation_finished not implemented")
-	return
