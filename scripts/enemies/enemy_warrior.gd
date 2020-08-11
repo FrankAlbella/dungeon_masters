@@ -150,7 +150,7 @@ remotesync func _take_damage(dmg: int, source: Node) -> void:
 	
 remotesync func die():
 	set_process(false)
-	Global.log_normal(name + " has died!", true)
+	Global.log_normal(name + " has died!", false)
 	remove_from_group("enemy")
 	emit_signal("died")
 	
