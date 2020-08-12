@@ -110,6 +110,8 @@ remotesync func die() -> void:
 	if $state_machine.get_state_name() == "dead" or $state_machine.get_state_name() == "game_over":
 		return 
 	
+	stat_deaths += 1
+	
 	Global.log_normal(player_name + " has died!", true)
 	$state_machine._change_state("dead")
 	
