@@ -17,11 +17,19 @@ var is_sprinting = false
 # CAMERA CONSTANTS
 const FOV = 90
 var SPRINT_FOV = FOV + 5
+const CAM_ANIM_TIME = 0.2
 
 var dir = Vector3()
 var vel = Vector3()
 
 func enter():
+	owner.get_node("Tween").interpolate_property(owner.get_node("rotation_helper/camera_rot/camera"), 
+		"translation", 
+		owner.get_node("rotation_helper/camera_rot/camera").translation, 
+		Vector3(0, 0, 0),
+		CAM_ANIM_TIME)
+	owner.get_node("Tween").start()
+	
 	_shoot_pos = owner.get_node("rotation_helper/camera_rot/camera/ShootPosition")
 	
 	if not owner.is_in_group("player_alive"):
