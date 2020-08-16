@@ -7,7 +7,9 @@ onready var revive_score = $MarginContainer/MarginContainer/VBoxContainer/stat_r
 onready var room_score = $MarginContainer/MarginContainer/VBoxContainer/stat_rooms/score
 onready var floor_score = $MarginContainer/MarginContainer/VBoxContainer/stat_floors/score
 
-func update_all_stats(player_node: player) -> void:
+# making the player_node type to player (player_node: player)
+# results in a crash when exported, therefore player_node has no type for now
+func update_all_stats(player_node) -> void:
 	set_player_name(player_node.player_name)
 	set_kills(player_node.stat_kills)
 	set_deaths(player_node.stat_deaths)

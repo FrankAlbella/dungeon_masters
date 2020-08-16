@@ -10,7 +10,9 @@ func populate_players():
 		n.queue_free()
 		
 	for player_node in player_nodes.get_children():
-		if not player_node is player:
+		# player_node is player is resulting in a crash when exported
+		# so we use this workaround for now...
+		if not player_node.has_method("set_player_name"):
 			continue
 		var card = stat_card.instance()
 		stat_card_container.add_child(card)
