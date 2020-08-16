@@ -9,17 +9,17 @@ func enter():
 		owner.get_node("GUI").hide()
 		owner.get_node("stat_menu").populate_players()
 		owner.get_node("stat_menu").show()
-		UIMusic.stop()
+		UIMusic.play_death_music()
 
 # Clean up the state. Reinitialize values like a timer
 func exit():
 	return
 
-func handle_input(event):
+func handle_input(_event):
 	return
 
-func update(delta):
+func update(_delta):
 	return
 
-func _on_animation_finished(anim_name):
+func _on_animation_finished(_anim_name):
 	return
