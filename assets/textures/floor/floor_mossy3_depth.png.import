@@ -2,21 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/floor_mossy3_depth.png-00f440c2e8cf8043c466af9474a32c61.s3tc.stex"
-path.etc2="res://.import/floor_mossy3_depth.png-00f440c2e8cf8043c466af9474a32c61.etc2.stex"
+path="res://.import/floor_mossy3_depth.png-00f440c2e8cf8043c466af9474a32c61.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/textures/floor/floor_mossy3_depth.png"
-dest_files=[ "res://.import/floor_mossy3_depth.png-00f440c2e8cf8043c466af9474a32c61.s3tc.stex", "res://.import/floor_mossy3_depth.png-00f440c2e8cf8043c466af9474a32c61.etc2.stex" ]
+dest_files=[ "res://.import/floor_mossy3_depth.png-00f440c2e8cf8043c466af9474a32c61.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

@@ -2,21 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/wall_test.png-23302715a13cc8cb9495d989a8f027d9.s3tc.stex"
-path.etc2="res://.import/wall_test.png-23302715a13cc8cb9495d989a8f027d9.etc2.stex"
+path="res://.import/wall_test.png-23302715a13cc8cb9495d989a8f027d9.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/textures/wall/wall_test.png"
-dest_files=[ "res://.import/wall_test.png-23302715a13cc8cb9495d989a8f027d9.s3tc.stex", "res://.import/wall_test.png-23302715a13cc8cb9495d989a8f027d9.etc2.stex" ]
+dest_files=[ "res://.import/wall_test.png-23302715a13cc8cb9495d989a8f027d9.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

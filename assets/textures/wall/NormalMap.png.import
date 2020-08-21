@@ -2,21 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/NormalMap.png-cae4e1054ce8500a5d982d172cdfe942.s3tc.stex"
-path.etc2="res://.import/NormalMap.png-cae4e1054ce8500a5d982d172cdfe942.etc2.stex"
+path="res://.import/NormalMap.png-cae4e1054ce8500a5d982d172cdfe942.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/textures/wall/NormalMap.png"
-dest_files=[ "res://.import/NormalMap.png-cae4e1054ce8500a5d982d172cdfe942.s3tc.stex", "res://.import/NormalMap.png-cae4e1054ce8500a5d982d172cdfe942.etc2.stex" ]
+dest_files=[ "res://.import/NormalMap.png-cae4e1054ce8500a5d982d172cdfe942.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

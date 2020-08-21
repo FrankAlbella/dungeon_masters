@@ -2,21 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/spritesheet-4way.png-a48e74b8d4aad7498158e2e5a2a66f12.s3tc.stex"
-path.etc2="res://.import/spritesheet-4way.png-a48e74b8d4aad7498158e2e5a2a66f12.etc2.stex"
+path="res://.import/spritesheet-4way.png-a48e74b8d4aad7498158e2e5a2a66f12.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/atlas/spritesheet-4way.png"
-dest_files=[ "res://.import/spritesheet-4way.png-a48e74b8d4aad7498158e2e5a2a66f12.s3tc.stex", "res://.import/spritesheet-4way.png-a48e74b8d4aad7498158e2e5a2a66f12.etc2.stex" ]
+dest_files=[ "res://.import/spritesheet-4way.png-a48e74b8d4aad7498158e2e5a2a66f12.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

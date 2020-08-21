@@ -2,21 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/SpecularMap.png-a01b1ee179138cbf85b1d98cec59922d.s3tc.stex"
-path.etc2="res://.import/SpecularMap.png-a01b1ee179138cbf85b1d98cec59922d.etc2.stex"
+path="res://.import/SpecularMap.png-a01b1ee179138cbf85b1d98cec59922d.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/textures/wall/SpecularMap.png"
-dest_files=[ "res://.import/SpecularMap.png-a01b1ee179138cbf85b1d98cec59922d.s3tc.stex", "res://.import/SpecularMap.png-a01b1ee179138cbf85b1d98cec59922d.etc2.stex" ]
+dest_files=[ "res://.import/SpecularMap.png-a01b1ee179138cbf85b1d98cec59922d.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

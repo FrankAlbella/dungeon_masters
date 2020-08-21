@@ -2,21 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/magic_missile3.png-f169d21bb5bf82f8cb5d5f32d2a50033.s3tc.stex"
-path.etc2="res://.import/magic_missile3.png-f169d21bb5bf82f8cb5d5f32d2a50033.etc2.stex"
+path="res://.import/magic_missile3.png-f169d21bb5bf82f8cb5d5f32d2a50033.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/sprites/magic_missile3.png"
-dest_files=[ "res://.import/magic_missile3.png-f169d21bb5bf82f8cb5d5f32d2a50033.s3tc.stex", "res://.import/magic_missile3.png-f169d21bb5bf82f8cb5d5f32d2a50033.etc2.stex" ]
+dest_files=[ "res://.import/magic_missile3.png-f169d21bb5bf82f8cb5d5f32d2a50033.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

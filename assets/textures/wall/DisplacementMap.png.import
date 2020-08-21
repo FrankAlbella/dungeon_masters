@@ -2,21 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/DisplacementMap.png-8fdbe18d345574a7a904bd7334e6a361.s3tc.stex"
-path.etc2="res://.import/DisplacementMap.png-8fdbe18d345574a7a904bd7334e6a361.etc2.stex"
+path="res://.import/DisplacementMap.png-8fdbe18d345574a7a904bd7334e6a361.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/textures/wall/DisplacementMap.png"
-dest_files=[ "res://.import/DisplacementMap.png-8fdbe18d345574a7a904bd7334e6a361.s3tc.stex", "res://.import/DisplacementMap.png-8fdbe18d345574a7a904bd7334e6a361.etc2.stex" ]
+dest_files=[ "res://.import/DisplacementMap.png-8fdbe18d345574a7a904bd7334e6a361.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
