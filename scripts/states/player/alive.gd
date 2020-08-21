@@ -115,7 +115,7 @@ func update(delta):
 	process_movement(delta)
 
 func process_movement(delta):
-	#dir.y = 0
+	dir.y = 0
 	dir = dir.normalized()
 	
 	if not owner.is_on_floor():
