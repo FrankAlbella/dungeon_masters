@@ -1,4 +1,4 @@
-extends "../state.gd"
+extends state
 
 const CAM_ANIM_TIME = 0.2
 

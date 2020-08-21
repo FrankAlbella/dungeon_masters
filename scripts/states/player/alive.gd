@@ -1,4 +1,4 @@
-extends "../state.gd"
+extends state
 
 var _shoot_pos
 

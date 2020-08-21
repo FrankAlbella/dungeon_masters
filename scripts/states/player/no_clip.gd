@@ -1,4 +1,4 @@
-extends "../state.gd"
+extends state
 
 const MAX_SPEED = 6
 

@@ -9,7 +9,7 @@ onready var floor_score = $MarginContainer/MarginContainer/VBoxContainer/stat_fl
 
 # making the player_node type to player (player_node: player)
 # results in a crash when exported, therefore player_node has no type for now
-func update_all_stats(player_node) -> void:
+func update_all_stats(player_node: player) -> void:
 	set_player_name(player_node.player_name)
 	set_kills(player_node.stat_kills)
 	set_deaths(player_node.stat_deaths)

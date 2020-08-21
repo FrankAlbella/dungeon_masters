@@ -1,4 +1,4 @@
-extends "../state.gd"
+extends state
 
 # Initialize the state. E.g. change the animation
 func enter():
