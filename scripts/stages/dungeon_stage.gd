@@ -1,4 +1,4 @@
-extends Spatial
+extends stage
 
 onready var staircase_scene = preload("res://scenes/prefab/transition/staircase.tscn")
 onready var hallway_scene = preload("res://scenes/prefab/transition/hallway.tscn")
@@ -40,8 +40,3 @@ func generate_dungeon():
 	var new_circle_hallway = circle_hallway_scene.instance()
 	$dungeon.add_child(new_circle_hallway)
 	new_circle_hallway.move_and_match_exits($dungeon/start_room2, false)
-	
-	
-func _on_fall_area_body_entered(body):
-	if body.has_method("get_spawn_id"):
-		body.translation = get_node("spawn_points/" + str(body.get_spawn_id())).translation

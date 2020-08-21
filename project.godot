@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/props/magic_missile.gd"
 }, {
+"base": "Spatial",
+"class": "stage",
+"language": "GDScript",
+"path": "res://scripts/stages/stage.gd"
+}, {
 "base": "Node",
 "class": "state",
 "language": "GDScript",
@@ -50,6 +55,7 @@ _global_script_class_icons={
 "player": "",
 "prefab": "",
 "projectile": "",
+"stage": "",
 "state": "",
 "state_machine": ""
 }

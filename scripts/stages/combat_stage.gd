@@ -1,4 +1,4 @@
-extends Spatial
+extends stage
 
 onready var warrior_scene = preload("res://scenes/enemies/enemy_warrior.tscn")
 var spawn_thread
@@ -26,7 +26,6 @@ remotesync func spawn_enemy(e_name: String, pos: Transform) -> void:
 		
 	call_deferred("add_child", enemy)
 	Global.log_normal(str(enemy)+" Spawned")
-
 
 func _on_enemy_died():
 	if get_tree().get_nodes_in_group("enemy").size() == 0:
