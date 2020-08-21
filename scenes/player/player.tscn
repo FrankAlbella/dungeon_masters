@@ -11,7 +11,7 @@
 [ext_resource path="res://scripts/states/player/alive.gd" type="Script" id=9]
 [ext_resource path="res://scripts/states/player/dead.gd" type="Script" id=10]
 [ext_resource path="res://scripts/states/player/no_clip.gd" type="Script" id=11]
-[ext_resource path="res://assets/sprites/player/player_wisp.png" type="Texture" id=12]
+[ext_resource path="res://assets/atlas/player_wisp_spritesheet.png" type="Texture" id=12]
 [ext_resource path="res://scripts/states/player/game_over.gd" type="Script" id=13]
 [ext_resource path="res://scenes/menus/stats/stat_menu.tscn" type="PackedScene" id=14]
 
@@ -57,11 +57,14 @@ region_rect = Rect2( 291, 3, 77, 121 )
 frame_width = 94
 frame_height = 128
 
-[node name="player_wisp" type="Sprite3D" parent="rotation_helper"]
+[node name="player_wisp" parent="rotation_helper" instance=ExtResource( 8 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0 )
 visible = false
-billboard = 2
 texture = ExtResource( 12 )
+region_rect = Rect2( 96, 0, 32, 32 )
+spritesheet = ExtResource( 12 )
+frame_width = 32
+frame_height = 32
 
 [node name="camera_rot" type="Spatial" parent="rotation_helper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
