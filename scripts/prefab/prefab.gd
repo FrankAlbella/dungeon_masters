@@ -114,9 +114,9 @@ func move_and_match_exits(prefab_node: prefab, is_starting_room: bool) -> void:
 		unlock_doors()
 	
 	# Workaround because CSG meshes do not update collision meshes when moved 
-	for node in $geometry.get_children():
-		if node is CSGShape:
-			toggle_csg_collision(node)
+	#for node in $geometry.get_children():
+	#	if node is CSGShape:
+	#		toggle_csg_collision(node)
 	#remove_child(geometry_node)
 
 func toggle_csg_collision(csg_node):
@@ -135,7 +135,7 @@ func _on_visible_area_body_entered(body):
 
 func _on_visible_area_body_exited(body):
 	if body.is_in_group("player"):
-		if geometry_node and $visible_area.get_overlapping_bodies().size() - 1 == 0:
+		if geometry_node and $visible_area.get_overlapping_bodies().size() == 0:
 			geometry_node.hide()
 			#remove_child(geometry_node)
 
